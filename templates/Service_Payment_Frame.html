@@ -1,0 +1,183 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- MATERIALIZE STARTS HERE -->
+    <!--Import Google Icon Font-->
+    <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!--Import materialize.css-->
+    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"  media="screen,projection"/>
+    <!--Let browser know website is optimized for mobile-->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <!-- MATERIALIZE ENDS -->
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Payment Confirmation - DashPorter</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+
+
+    <!-- Local CSS -->
+    <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bootstrap-social.css">
+
+    <!-- Custom styles for this template -->
+    <!-- <link href="dashboard.css" rel="stylesheet"> -->
+
+    <script src="http://getbootstrap.com/assets/js/ie-emulation-modes-warning.js"></script>
+     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+
+    <body style="margin-bottom:0px;">
+    
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link active" href="/home">Return Home</a>
+          </li>
+<!--           <li class="nav-item">
+            <a class="nav-link" href="/profile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/add-car">Add Car</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/support">Support</a>
+          </li>
+ -->        </ul>
+        </div>
+        <!-- <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;">  -->
+         <!-- margin-bottom:0px; margin-top:0px; margin-right:50px;"> -->
+        <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;">
+          <button class="btn btn-outline-success my-2 my-sm-0" style="margin-top:30px;" type="submit">Routine Maintenance</button>
+        </form>
+    </nav>   
+  <!-- MOBILE VS WEB -->
+    <!-- Margin-Top: 30px for mobile, 80 px for web -->
+
+
+    <!-- WEB CONTAINER DIV -->
+    <div class="col-sm-6" id="web" style="float: left; margin-left: 20px; margin-top:110px;">
+      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+        <h2 style="text-align:left;">Your Requested Service: {{Service_Name}}</h2>
+        <br>
+        <h3 style="margin-bottom:5px;">Cost</h3>
+        <p style="text-align:left;">Service Cost: </p>
+        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}</p>
+
+        <p style="text-align:left;">Delivery Fee: </p>
+        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+
+        <p style="text-align:left;">Taxes: </p>
+        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+        <h5 style="text-align:left;">Total: </h5><h5 style="margin-top:-30px; text-align:right;">${{Total}}</h5>
+        
+        <h4 style="margin-top:15px; float: left;">Expected Time of Arrival: </h4>
+        <h5 style="float:right; margin-left:100px; margin-top:15px">[Time Here]</h5>
+        <br> <br> <br>
+        <!-- <h4 style="margin-top:15px;">Service Provider: </h4> -->
+        <!-- <br><br><br> -->
+        <!-- <p style="margin-top:0px; float:left;">[Details on Service Provider Here]</p> -->
+        <h4 style="margin-top:15px;">Google Maps API: </h4>
+        <!-- <br><br><br> -->
+        <p style="margin-top:0px; float:left;">[Map with Geolocation + ETA Here]</p>
+        
+        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
+        <!-- <br> -->
+        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+        <div style="margin:auto;">       
+        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
+        </div>
+      </form>
+    </div>
+
+    <div class="col-sm-5" id="web" style="float: right; margin-right:50px; margin-bottom:30px !important; margin-top:85px;">
+      <form class="form-signin" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+        <h2 style="margin-bottom:15px; text-align:center;">Enter Payment Information</h2>
+        <h5 style="margin-bottom:0px;">Name on the Card</h5>
+        <input placeholder="Name" id="first_name" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">Billing Address</h5>
+        <input placeholder="Address" id="first_name" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">City, State, Zip</h5>
+        <input placeholder="City, State and Zip" id="first_name" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">Card Number</h5>
+        <input placeholder="Card Number" id="first_name" type="text" class="validate">        
+        <div class="col-sm-6" style="margin-left:-15px; float:left;">
+        <h5 style="margin-bottom:0px;">Expiry Date</h5>
+        <input placeholder="Expiry Date" id="first_name" type="text" class="validate">
+        </div>
+        <div class="col-sm-6" style="float:right;">
+        <h5 style="margin-bottom:0px;">Security Code</h5>        
+        <input placeholder="Security Code" id="first_name" type="text" class="validate">        
+        </div>        
+        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
+        <!-- <br> -->
+        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+        <div style="margin:auto;">       
+        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
+        <input type="submit" class="btn btn-block btn-primary" value="Submit" style="margin:auto; text-align:center; font-size:20px; height:45px; 
+        margin-left:0px; background-color:grey;" name="payment_btn" >        
+        </div>
+      </form>
+    </div>
+
+    <!-- MOBILE CONTAINER DIV -->
+    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
+      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+        <h2 style="text-align:center;">Enter Payment Information</h2>
+        <br>
+        <h3>Credit Card Number</h3>
+        <input placeholder="Enter Card Number" id="first_name" type="text" class="validate">        
+        <h3>Expiry Date</h3>
+        <input placeholder="Enter Expiry" id="first_name" type="text" class="validate">
+        <h3>CVS Code</h3>        
+        <input placeholder="Enter Code" id="first_name" type="text" class="validate">        
+        <div style="margin:auto;">       
+        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
+        </div>
+      </form>
+    </div>
+
+ 
+   <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+    
+    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+    <script src="https://v4-alpha.getbootstrap.com/dist/js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="https://v4-alpha.getbootstrap.com/assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+  </body>
+</html>
