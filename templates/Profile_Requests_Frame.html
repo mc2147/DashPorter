@@ -78,7 +78,7 @@
     <div class="col-md-12" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
       <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:left; margin-bottom:20px;">Your Past Requests</h2>
+        <h2 style="text-align:left; margin-bottom:20px;">Your Request History</h2>
         {%for row in Requests %}
         <p style="margin-bottom:0px;"><b>Requested Service:</b> {{row.1}} <b>Time:</b> {{row.0}} <b>Cost</b> {{row.1}}</p>
         {% endfor %}

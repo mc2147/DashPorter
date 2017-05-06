@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,14 +43,17 @@
     <body style="margin-bottom:0px;">
     
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<!--       <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
-      <img src="Images/Logo.jpg" style="float:right; width:40px !important; display:block; margin-bottom:0px; margin-top:0px; margin-right:50px;">
-       <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;" action="/home">
-          <button class="btn btn-outline-danger my-2 my-sm-0" style="margin-top:30px;" type="submit">EMERGENCY SERVICES</button>
-        </form>
+ -->      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
+      <img src="{% static 'Logo.png' %}" style="width:50px !important; margin:auto; display:block;">
+
+      <!-- <img src="Images/Logo.jpg" style="float:right; width:40px !important; display:block; margin-bottom:0px; margin-top:0px; margin-right:50px;"> -->
+       <!-- <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;" action="/home"> -->
+          <!-- <button class="btn btn-outline-danger my-2 my-sm-0" style="margin-top:30px;" type="submit">EMERGENCY SERVICES</button> -->
+        <!-- </form> -->
+
     </nav>   
   <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
@@ -58,7 +61,7 @@
 
     <!-- WEB CONTAINER DIV -->
     <div class="container hidden-sm-down" id="web" style="margin-bottom:30px !important; width:400px; margin-top:80px;">
-      <form class="form-signin" action="#" method="GET" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:center;">Create Account</h2>
         <br>
@@ -67,7 +70,8 @@
         <input placeholder="Email/Username" name="email" type="text" class="validate">        
         <input placeholder="Phone Number" name="number" type="text" class="validate">        
         <input placeholder="Password" name="p_word" type="password" class="validate">        
-        <input placeholder="Re-type Password" name="p_word_2" type="password" class="validate">        
+        <input placeholder="Re-type Password" name="p_word_2" type="password" class="validate">
+        {{Empty_Input}}        
         <br><br>
         <div style="margin-top:5px; margin:auto;">       
         <input type="submit" class="btn btn-block btn-social btn-primary" value="Create Account" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" name="create_account" >
@@ -82,11 +86,11 @@
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:center;">Create Account</h2>
         <br>
-        <input placeholder="First Name" id="first_name" type="text" class="validate">        
-        <input placeholder="Last Name" id="first_name" type="text" class="validate">
-        <input placeholder="Email/Username" id="first_name" type="text" class="validate">        
-        <input placeholder="Password" id="first_name" type="text" class="validate">        
-        <input placeholder="Re-type Password" id="first_name" type="text" class="validate">        
+        <input placeholder="First Name" name="first_name" type="text" class="validate">        
+        <input placeholder="Last Name" name="last_name" type="text" class="validate">
+        <input placeholder="Email/Username" name="email" type="text" class="validate">        
+        <input placeholder="Password" name="p_word" type="text" class="validate">        
+        <input placeholder="Re-type Password" name="p_word_2" type="text" class="validate">        
         <br><br>
         <div style="margin-top:5px; margin:auto;">       
         <input type="submit" class="btn btn-block btn-social btn-primary" value="Create Account" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" name="s-login" >

@@ -8,10 +8,12 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <link href="http://getbootstrap.com/assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import materialize.css-->    
+    <link type="text/css" rel="stylesheet" 
+    href = "{% static 'DashPorter\materialize_edited.css' %}"
+    media="screen,projection"/>
     <!-- BOOTSTRAP -->
     <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -61,13 +63,14 @@
         </form>
     </nav>   
 
+
     <div class="container-fluid">
       <div class="row">
 
         <main class="col-sm-9 offset-sm-3 col-md-10 offset-md-1 pt-3" style="margin-left:60px; margin-top:120px;">
+          <div class="responsive hidden-sm-down">
           <h2>Emergency Services</h2>
           <!-- <div class="hidden"> -->
-          <div class="responsive  hidden-xs hidden-sm hidden-md hidden-lg">
           <section class="row text-center placeholders" style="margin-left:-10px;">
             <div class="col-6 col-sm-2 placeholder" style="text-align:center; margin-right:30px; padding-right:0px;">
             <!-- {% load staticfiles %} -->
@@ -111,8 +114,70 @@
               Request Service</button>
             </div>            
           </section>
+          {{No_Car_Error}}
+
           </div>
-    <form method="GET" >
+<!--           {{No_Car_Error}}
+ -->
+    <script type="text/javascript">
+      function T_ValidateForm()
+      {
+        var make=document.forms["Tow"]["make"].value;
+        var model=document.forms["Tow"]["model"].value;
+        var year=document.forms["Tow"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function FT_ValidateForm()
+      {
+        var make=document.forms["Flat"]["make"].value;
+        var model=document.forms["Flat"]["model"].value;
+        var year=document.forms["Flat"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function L_ValidateForm()
+      {
+        var make=document.forms["Lockout"]["make"].value;
+        var model=document.forms["Lockout"]["model"].value;
+        var year=document.forms["Lockout"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function JS_ValidateForm()
+      {
+        var make=document.forms["JumpStart"]["make"].value;
+        var model=document.forms["JumpStart"]["model"].value;
+        var year=document.forms["JumpStart"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function GS_ValidateForm()
+      {
+        var make=document.forms["GasService"]["make"].value;
+        var model=document.forms["GasService"]["model"].value;
+        var year=document.forms["GasService"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+    </script>
+
+    <form method="GET">
     <div class="modal fade" id="tow_service" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -126,7 +191,7 @@
                 <label for="sel1">Select Car</label>
                 <select class="form-control" style="width:75%;" name="selected_car_tow"> <!-- id="selected_car_OC"> -->
                   {% for row in No_Cars %}
-                  <option name="no_cars">{{row}}</option>
+                  <option value="no_cars">{{row}}</option>
                   {% endfor %}
                   {% for row in Car_Names %}
                   <option value={{row.1}} >{{row.0}}</option>
@@ -135,16 +200,22 @@
                 <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="Tow_select_car" type="submit" value="Select Car">
                </div>
               </div>
+    </form>
+
+    <form method="GET" name="Tow" onsubmit="return T_ValidateForm()">
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
-                <input style="float:right; width:51%;" type = "text" name="T_make" class="validate" placeholder = "Make">
-                <input style="float:right; width:51%;" placeholder="Model" name="T_model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="T_year" type="text" class="validate">   
-                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="Tow_info_car" 
+                <input style="float:right; width:51%;" type = "text" name="make" class="validate" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:25px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="Tow_info_car" 
                 type="submit" value ="Enter Information">
+    </form>
               </div>
           </div>
         </div>
       </div>
+
+    <form method="GET">      
     <div class="modal fade" id="flat_tire" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -154,9 +225,12 @@
               </div>              
               <div class="modal-body" style="margin-bottom:0px; height:300px;">
                 <div style="margin-bottom:10px;" class="col-sm-12">
-                  <div class="dropdown">
+                <div class="dropdown">
                 <label for="sel1">Select Car</label>
                 <select class="form-control" style="width:75%;" name="selected_car_FT" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
                   {% for row in Car_Names %}
                   <option value={{row.1}}>{{row.0}}</option>
                   {% endfor %}
@@ -164,16 +238,21 @@
                 <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="FT_select_car" type="submit" value ="Select Car">
                </div>
               </div>
+    </form>
+    <form method="GET" name="Flat" onsubmit="return FT_ValidateForm()">
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
-                <input style="float:right; width:51%;" placeholder = "Make" name="FT_make" type = "text" class="validate">
-                <input style="float:right; width:51%;" placeholder="Model" name="FT_model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="FT_year" type="text" class="validate">   
-                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="FT_info_car" 
+                <input style="float:right; width:51%;" placeholder = "Make" name="make" type = "text" class="validate">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:25px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="FT_info_car" 
                 type="submit" value ="Enter Information">
+    </form>
               </div>
           </div>
         </div>
       </div>
+
+    <form method="GET">      
     <div class="modal fade" id="lockout" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -186,6 +265,9 @@
                 <div class="dropdown">
                 <label for="sel1">Select Car</label>
                 <select class="form-control" style="width:75%;" name="selected_car_L" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
                   {% for row in Car_Names %}
                   <option value={{row.1}}>{{row.0}}</option>
                   {% endfor %}
@@ -193,15 +275,20 @@
                 <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="L_select_car" type="submit" value ="Select Car">
                </div>
               </div>
+    </form>
+    <form method="GET" name="Lockout"  onsubmit="return L_ValidateForm()">    
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
-                <input style="float:right; width:51%;" type = "text" name="L_make" class="validate" placeholder = "Make">
-                <input style="float:right; width:51%;" placeholder="Model" name="L_model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="L_year" type="text" class="validate">   
-                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="L_info_car" type="submit" value ="Enter Information">
+                <input style="float:right; width:51%;" type = "text" name="make" class="validate" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:25px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="L_info_car" type="submit" value ="Enter Information">
+      </form>
               </div>
           </div>
         </div>
       </div>
+
+    <form method="GET">      
     <div class="modal fade" id="jump_start" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -214,6 +301,9 @@
                   <div class="dropdown">
                 <label for="sel1">Select Car</label>
                 <select class="form-control" style="width:75%;" name="selected_car_JS" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
                   {% for row in Car_Names %}
                   <option value={{row.1}}>{{row.0}}</option>
                   {% endfor %}
@@ -221,16 +311,20 @@
                 <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="JS_select_car" type="submit" value ="Select Car">
                </div>
               </div>
+    </form>              
+    <form method="GET" name="JumpStart" onsubmit="return JS_ValidateForm()">    
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
-                <input style="float:right; width:51%;" type = "text" class="validate" name="JS_make" placeholder = "Make">
-                <input style="float:right; width:51%;" placeholder="Model" name="JS_model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="JS_year" type="text" class="validate">   
-                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="JS_info_car" type="submit" value ="Enter Information">
+                <input style="float:right; width:51%;" type = "text" class="validate" name="make" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:25px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="JS_info_car" type="submit" value ="Enter Information">
+    </form> 
               </div>
           </div>
         </div>
-      </div> 
+      </div>
 
+    <form method="GET">      
     <div class="modal fade" id="gas_service" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -243,6 +337,9 @@
                   <div class="dropdown">
                 <label for="sel1">Select Car</label>
                 <select class="form-control" style="width:75%;" name="GS_car" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
                   {% for row in Car_Names %}
                   <option value={{row.1}}>{{row.0}}</option>
                   {% endfor %}
@@ -250,50 +347,462 @@
                 <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="GS_select_car" type="submit" value ="Select Car">
                </div>
               </div>
+    </form>
+    <form method="GET" name="GasService" onsubmit="return GS_ValidateForm()">    
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
-                <input style="float:right; width:51%;" type = "text" class="validate" name="GS_make" placeholder = "Make">
-                <input style="float:right; width:51%;" placeholder="Model" name="GS_model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="GS_year" type="text" class="validate">   
-                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="GS_info_car" 
+                <input style="float:right; width:51%;" type = "text" class="validate" name="make" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:25px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="GS_info_car" 
                 type="submit" value ="Enter Information">
+    </form>
               </div>
           </div>
         </div>
       </div>       
-        </form>
 
         </main>
 
-        <div class="mobile hidden-sm-up">
-        <h2 style="margin-left:5px; margin-top:10px;"">Emergency Services</h2>
+<!--    MOBILE STARTS HERE -->
+<!--    MOBILE STARTS HERE -->
+<!--    MOBILE STARTS HERE -->
+        <div class="hidden-sm-up" style="margin-top:-75px; width:100%;">
+        <h2 style="margin-left:5px; margin-top:0px;"">Emergency Services</h2>
         <div style="margin-left:0px" class="table-responsive">
-            <table style="margin-left:0px" class="table table-striped">
-                <tbody style="margin-left:0px">
-                <tr style="padding:0px;">
-                  <td>Oil Change<br><span class="text-muted">Service Description, ETA, Price Estimate</span></td>
-                  <td style="padding:0px"><img src="{% static 'DashPorter/Oil_Change.bmp' %}"style="margin:0px; padding:0px; float:right;" width="120" height="120" class="img-fluid" alt="Generic placeholder thumbnail"></td>
+            <table style="margin-left:0px; margin-right:0px; width:100%;" class="table table-striped">
+                <tbody style="margin-left:0px; margin-right:0px; width:100%;">
+                <tr style="margin-right:0px; padding:0px; margin-bottom:0px; width:100%;">
+                  <td style="margin-bottom:0px; padding-bottom:0px;"><b>Tow Truck</b><button 
+                  style="float:right; margin-right:10px; padding-left:5px; padding-right:5px; height:50%; margin-top:0px; font-size:12px;"
+                  type="button" data-toggle="modal" data-target="#mobile_tow_service" class="btn btn-success" name="modal">Request</button>
+                  <br><br>
+                  <span class="text-muted">Cost: $30 ETA: 30 minutes</span>
+                  </td>
+                  <td style="margin-bottom:0px; padding:0px;">
+                  <img src="{% static 'DashPorter/Tow_Truck.png' %}" style="margin:0px; margin-left:0px; margin-bottom:0px; padding:0px; float:right;"
+                  width="75" height="75" class="img-fluid" alt="Generic placeholder thumbnail"></td>
                 </tr>
                 <tr>
-                  <td >Flat Tire<br><span class="text-muted">Service Description, ETA, Price Estimate</span></td>
-                  <td style="padding:0px"><img src="{% static 'DashPorter/Tire_Change.png' %}" style="margin:0px; padding:0px; float:right;" width="120" height="120" class="img-fluid" alt="Generic placeholder thumbnail"></td>
+                  <td style="margin-bottom:0px; padding-bottom:0px;"><b>Flat Tire</b><button 
+                  style="float:right; margin-right:10px; padding-left:5px; padding-right:5px; height:50%; margin-top:0px; font-size:12px;"
+                  type="button" data-toggle="modal" data-target="#mobile_flat_tire" class="btn btn-success" name="modal">Request</button>
+                  <br><br>
+                  <span class="text-muted">Cost: $30 ETA: 30 minutes</span>
+                  </td>
+                  <td style="padding:0px"><img src="{% static 'DashPorter/Tire_Change.png' %}" style="margin:0px; padding:0px; float:right;" 
+                  width="75" height="75" class="img-fluid" alt="Generic placeholder thumbnail"></td>
                 </tr>
                 <tr>
-                  <td>Service 3<br><span class="text-muted">Service Description, ETA, Price Estimate</span></td>
-                  <td style="padding:0px"><img src="{% static 'DashPorter/Other_Logo.jpg' %}" style="margin:0px; padding:0px; float:right;" width="120" height="120" class="img-fluid" alt="Generic placeholder thumbnail"></td>
+                  <td style="margin-bottom:0px; padding-bottom:0px;"><b>Lockout</b><button 
+                  style="float:right; margin-right:10px; padding-left:5px; padding-right:5px; height:50%; margin-top:0px; font-size:12px;"
+                  type="button" data-toggle="modal" data-target="#mobile_lockout" class="btn btn-success" name="modal">Request</button>
+                  <br><br>
+                  <span class="text-muted">Cost: $30 ETA: 30 minutes</span>
+                  </td>
+                  <td style="padding:0px"><img src="{% static 'DashPorter/Other_Logo.jpg' %}" style="margin:0px; padding:0px; float:right;" 
+                  width="75" height="75" class="img-fluid" alt="Generic placeholder thumbnail"></td>
                 </tr>
                 <tr>
-                  <td>Jump Start<br><span class="text-muted">Service Description, ETA, Price Estimate</span></td>
-                  <td style="padding:0px"><img src="{% static 'DashPorter/Battery.jpg' %}" style="margin:0px; padding:0px; float:right;" width="120" height="120" class="img-fluid" alt="Generic placeholder thumbnail"></td>
-                </tr>
-<!--                 <tr>
-                  <td>Service 3</td>
-                  <td style="padding:0px"><img src="Service Logos/Other_Logo.jpg" style="margin:0px; padding:0px; float:right;" width="70" height="70" class="img-fluid" alt="Generic placeholder thumbnail"></td>
+                  <td style="margin-bottom:0px; padding-bottom:0px;"><b>Jump Start</b><button 
+                  style="float:right; margin-right:10px; padding-left:5px; padding-right:5px; height:50%; margin-top:0px; font-size:12px;"
+                  type="button" data-toggle="modal" data-target="#mobile_jump_start" class="btn btn-success" name="modal">Request</button>
+                  <br><br><span class="text-muted">Cost: $30 ETA: 30 minutes</span>
+                  </td>
+                  <td style="padding:0px"><img src="{% static 'DashPorter/Battery.jpg' %}" style="margin:0px; padding:0px; float:right;" 
+                  width="75" height="75" class="img-fluid" alt="Generic placeholder thumbnail"></td>
                 </tr>
                 <tr>
-                  <td>Jump Start</td>
-                  <td style="padding:0px"><img src="Service Logos/Battery.jpg" style="margin:0px; padding:0px; float:right;" width="70" height="70" class="img-fluid" alt="Generic placeholder thumbnail"></td>
-                </tr> -->
+                  <td style="margin-bottom:0px; padding-bottom:0px;"><b>Gas Service</b><button 
+                  style="float:right; margin-right:10px; padding-left:5px; padding-right:5px; height:50%; margin-top:0px; font-size:12px;"
+                  type="button" data-toggle="modal" data-target="#mobile_gas_service" class="btn btn-success" name="modal">Request</button>
+                  <!-- Request</button> -->
+                  <br><br><span class="text-muted">Cost: $30 ETA: 30 minutes</span>
+                  </td>
+                  <td style="padding:0px"><img src="{% static 'DashPorter/Gas_Change.png' %}" style="margin:0px; padding:0px; float:right;" 
+                  width="75" height="75" class="img-fluid" alt="Generic placeholder thumbnail"></td>
+                </tr>
+                <tr>
+                  <td style="margin-bottom:0px; padding-bottom:0px;">{{No_Car_Error}}
+                  </td>
+                </tr>
 
+                <!-- <tr>
+                </tr>
+ -->
+     <script type="text/javascript">
+      function M_T_ValidateForm()
+      {
+        var make=document.forms["M_Tow"]["make"].value;
+        var model=document.forms["M_Tow"]["model"].value;
+        var year=document.forms["M_Tow"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function M_FT_ValidateForm()
+      {
+        var make=document.forms["M_Flat"]["make"].value;
+        var model=document.forms["M_Flat"]["model"].value;
+        var year=document.forms["M_Flat"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function M_L_ValidateForm()
+      {
+        var make=document.forms["M_Lockout"]["make"].value;
+        var model=document.forms["M_Lockout"]["model"].value;
+        var year=document.forms["M_Lockout"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function M_JS_ValidateForm()
+      {
+        var make=document.forms["M_JumpStart"]["make"].value;
+        var model=document.forms["M_JumpStart"]["model"].value;
+        var year=document.forms["M_JumpStart"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+      function M_GS_ValidateForm()
+      {
+        var make=document.forms["M_GasService"]["make"].value;
+        var model=document.forms["M_GasService"]["model"].value;
+        var year=document.forms["M_GasService"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+    </script>
+
+    <form method="GET">
+    <div class="modal fade" id="mobile_tow_service" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">Enter Vehicle Information</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" name="selected_car_tow"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}} >{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-primary" name="Tow_select_car" type="submit" value="Select">
+              </div>
+    </form>
+    <form method="GET" name="M_Tow" onsubmit="return M_T_ValidateForm()">
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> add new car information: </p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" type = "text" 
+                name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" name="year" 
+                type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="Tow_info_car" 
+                type="submit" value ="Add New Car">
+      </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+<form method="GET">
+    <div class="modal fade" id="mobile_flat_tire" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">Enter Vehicle Information</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" name="selected_car_FT"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}} >{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-primary" name="Tow_select_car" type="submit" value="Select">
+              </div>
+    </form>
+    <form method="GET" name="M_Flat" onsubmit="return M_FT_ValidateForm()">      
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> add new car information: </p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" type = "text" 
+                name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" name="year" 
+                type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="FT_info_car" 
+                type="submit" value ="Add New Car">
+      </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+<form method="GET">
+    <div class="modal fade" id="mobile_lockout" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">Enter Vehicle Information</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" name="selected_car_L"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}} >{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-primary" name="L_select_car" type="submit" value="Select">
+              </div>
+    </form>
+    <form method="GET" name="M_Lockout" onsubmit="return M_L_ValidateForm()">      
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> add new car information: </p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" type = "text" 
+                name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" name="year" 
+                type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="L_info_car" 
+                type="submit" value ="Add New Car">
+      </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+<form method="GET">
+    <div class="modal fade" id="mobile_jump_start" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">Enter Vehicle Information</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" name="selected_car_JS"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}} >{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-primary" name="JS_select_car" type="submit" value="Select">
+              </div>
+    </form>
+
+    <form method="GET" name="M_JumpStart" onsubmit="return M_JS_ValidateForm()">      
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> add new car information: </p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" type = "text" 
+                name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" name="year" 
+                type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="JS_info_car" 
+                type="submit" value ="Add New Car">
+      </form>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+   <!--  <form method="GET">
+    <div class="modal fade" id="mobile_jump_start" role="dialog">
+        <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
+          <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px;" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 style="text-align:left; margin-left:10px;" class="modal-title">Jump Start - Select Car to Be Serviced</h4>
+              </div>              
+              <div class="modal-body" style="margin-bottom:0px; height:300px;">
+                <div style="margin-bottom:10px;" class="col-sm-12">
+                  <div class="dropdown">
+                <label for="sel1">Select Car</label>
+                <select class="form-control" style="width:75%;" name="selected_car_JS" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}}>{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+                <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="JS_select_car" type="submit" value ="Select Car">
+               </div>
+              </div>
+    </form>
+        <form method="GET" name="JumpStart" onsubmit="return GS_ValidateForm()">
+                <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
+                <input style="float:right; width:51%;" type = "text" class="validate" name="make" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="JS_info_car" type="submit" value ="Enter Information">
+        </form>
+              </div>
+          </div>
+        </div>
+      </div>  -->
+<form method="GET">
+    <div class="modal fade" id="mobile_gas_service" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">Enter Vehicle Information</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" name="GS_car"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}} >{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-primary" name="GS_select_car" type="submit" value="Select">
+              </div>
+    </form>
+
+    <form method="GET" name="M_GasService" onsubmit="return M_GS_ValidateForm()">      
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> add new car information: </p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" type = "text" 
+                name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" 
+                name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" 
+                name="year"  type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="GS_info_car" 
+                type="submit" value ="Add New Car">
+      </form>
+              </div>
+          </div>
+        </div>
+      </div>
+ 
+<!--     <form method="GET">
+    <div class="modal fade" id="mobile_gas_service" role="dialog">
+        <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
+          <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px;" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 style="text-align:left; margin-left:10px;" class="modal-title">Gas Service - Select Car to Be Serviced</h4>
+              </div>              
+              <div class="modal-body" style="margin-bottom:0px; height:300px;">
+                <div style="margin-bottom:10px;" class="col-sm-12">
+                  <div class="dropdown">
+                <label for="sel1">Select Car</label>
+                <select class="form-control" style="width:75%;" name="GS_car" id="sel1">
+                  {% for row in No_Cars %}
+                  <option value="no_cars">{{row}}</option>
+                  {% endfor %}
+                  {% for row in Car_Names %}
+                  <option value={{row.1}}>{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+                <input style="float:right; margin-top:-37px;" class="btn btn-primary" name="GS_select_car" type="submit" value ="Select Car">
+               </div>
+              </div>
+    </form>
+        <form method="GET" name="GasService" onsubmit="return GS_ValidateForm()">
+                <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> enter your car information: </p>
+                <input style="float:right; width:51%;" type = "text" class="validate" name="make" placeholder = "Make">
+                <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
+                <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="GS_info_car" 
+                type="submit" value ="Enter Information">
+        </form> 
+              </div>
+          </div>
+        </div>
+      </div> 
+ -->
               </tbody>
             </table>
           </div>

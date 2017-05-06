@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,8 +9,10 @@
     <!-- MATERIALIZE STARTS HERE -->
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import materialize.css-->    
+    <link type="text/css" rel="stylesheet" 
+    href = "{% static 'DashPorter\materialize_edited.css' %}"
+    media="screen,projection"/>
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- MATERIALIZE ENDS -->
@@ -65,6 +67,9 @@
           <li class="nav-item active">
             <a class="nav-link" href="/support">Support</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" style="" name="log_out" href="/logout">Log Out</a>
+          </li>          
         </ul>
         </div>
         <!-- <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;">  -->
@@ -78,7 +83,7 @@
 
 
     <!-- WEB CONTAINER DIV -->
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
       <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:left;">Support</h2>
@@ -97,7 +102,7 @@
         </div>
       </form>
     </div>
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
         <p>Support Phone Number: </p>
         <p>Support Email: </p>
         <p>Dashporter Address: </p>
@@ -106,21 +111,31 @@
     </div>    
 
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+    <div class="container hidden-md-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:70px;">
+       <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Enter Car Information</h2>
+        <h2 style="text-align:left;">Support</h2>
         <br>
-        <h3>Year</h3>
-        <input placeholder="Enter Year" id="first_name" type="text" class="validate">        
-        <h3>Make</h3>
-        <input placeholder="Enter Make" id="first_name" type="text" class="validate">
-        <h3>Model</h3>        
-        <input placeholder="Enter Model" id="first_name" type="text" class="validate">        
+        <p>Submit Support Request</p>
+        <br>
+        <h3>Request Details</h3>
+        <!-- <input style="height:100px; padding-top:0px;" placeholder="Enter Request Details" name="year" type="text" class="validate">  -->
+        <textarea style="margin-top:5px; height:100px;" name="Text1" cols="40" rows="5" placeholder="Enter Request Details" class="validate"></textarea>
+        <h3 style="margin-top:5px;">Name</h3>
+        <input placeholder="Enter Name" name="make" type="text" class="validate">
+        <h3>Email</h3>
+        <input placeholder="Enter Email" name="model" type="text" class="validate">
         <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
+        <input type="submit" class="btn btn-block btn-primary" value="Submit Request" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" name="add_car_btn" >        
         </div>
       </form>
+      <p>Support Phone Number: </p>
+        <p>Support Email: </p>
+        <p>Dashporter Address: </p>
+        <h2>Google Maps Image of Address Here</h2>
+
+
+
     </div>
 
  

@@ -43,10 +43,10 @@
     <body style="margin-bottom:0px;">
     
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<!--       <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
+ -->      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -78,7 +78,7 @@
 
 
     <!-- WEB CONTAINER DIV -->
-    <div class="col-sm-6" id="web" style="float: left; margin-left: 20px; margin-top:110px;">
+    <div class="col-sm-6 hidden-sm-down" id="web" style="float: left; margin-left: 20px; margin-top:110px;">
       <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:left;">Your Requested Service: {{Service_Name}}</h2>
@@ -113,25 +113,26 @@
       </form>
     </div>
 
-    <div class="col-sm-5" id="web" style="float: right; margin-right:50px; margin-bottom:30px !important; margin-top:85px;">
-      <form class="form-signin" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+    <div class="col-sm-5 hidden-sm-down" id="web" style="float: right; margin-right:50px; margin-bottom:30px !important; margin-top:85px;">
+      <form name="Payment" onsubmit="return ValidateForm()" class="form-signin" 
+      method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="margin-bottom:15px; text-align:center;">Enter Payment Information</h2>
+        <h2 style="margin-bottom:15px; text-align:left;">Enter Payment Information</h2>
         <h5 style="margin-bottom:0px;">Name on the Card</h5>
-        <input placeholder="Name" id="first_name" type="text" class="validate">        
+        <input placeholder="Name" name="card_name" type="text" class="validate">        
         <h5 style="margin-bottom:0px;">Billing Address</h5>
-        <input placeholder="Address" id="first_name" type="text" class="validate">        
+        <input placeholder="Address" name="billing_address" type="text" class="validate">        
         <h5 style="margin-bottom:0px;">City, State, Zip</h5>
-        <input placeholder="City, State and Zip" id="first_name" type="text" class="validate">        
+        <input placeholder="City, State and Zip" name="CSZ" type="text" class="validate">        
         <h5 style="margin-bottom:0px;">Card Number</h5>
-        <input placeholder="Card Number" id="first_name" type="text" class="validate">        
+        <input placeholder="Card Number" name="card_number" type="number" class="validate">        
         <div class="col-sm-6" style="margin-left:-15px; float:left;">
         <h5 style="margin-bottom:0px;">Expiry Date</h5>
-        <input placeholder="Expiry Date" id="first_name" type="text" class="validate">
+        <input placeholder="Expiry Date" name="expiry_date" type="number" class="validate">
         </div>
         <div class="col-sm-6" style="float:right;">
         <h5 style="margin-bottom:0px;">Security Code</h5>        
-        <input placeholder="Security Code" id="first_name" type="text" class="validate">        
+        <input placeholder="Security Code" name="security_code" type="number" class="validate">        
         </div>        
         <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
         <!-- <br> -->
@@ -143,23 +144,89 @@
         </div>
       </form>
     </div>
+    <script type="text/javascript">
+      function ValidateForm()
+      {
+        var name=document.forms["Payment"]["card_name"].value;
+        var address=document.forms["Payment"]["billing_address"].value;
+        var CSZ=document.forms["Payment"]["CSZ"].value;
+        var card_num=document.forms["Payment"]["card_number"].value;
+        var expiry_date=document.forms["Payment"]["expiry_date"].value;
+        var security_code=document.forms["Payment"]["security_code"].value;
+
+      if (name==null || address=="", CSZ==null || CSZ=="", card_num==null || card_num=="" 
+        || card_num==null || card_num=="" || expiry_date==null || expiry_date=="" || security_code==null || security_code=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+    </script>
 
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+    <div class="container hidden-sm-up" id="web" 
+    style="margin-bottom:30px !important; width:300px; margin-top:70px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Enter Payment Information</h2>
+        <h3 style="text-align:left;">Confirm Payment For: <br> {{Service_Name}}</h3>
         <br>
-        <h3>Credit Card Number</h3>
-        <input placeholder="Enter Card Number" id="first_name" type="text" class="validate">        
-        <h3>Expiry Date</h3>
-        <input placeholder="Enter Expiry" id="first_name" type="text" class="validate">
-        <h3>CVS Code</h3>        
-        <input placeholder="Enter Code" id="first_name" type="text" class="validate">        
+        <h3 style="margin-bottom:5px;">Cost</h3>
+        <p style="text-align:left;">Service Cost: </p>
+        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}</p>
+
+        <p style="text-align:left;">Delivery Fee: </p>
+        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+
+        <p style="text-align:left;">Taxes: </p>
+        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+        <h5 style="text-align:left;">Total: </h5><h5 style="margin-top:-30px; text-align:right;">${{Total}}</h5>
+        
+        <h4 style="margin-top:15px; float: left;">Expected Time of Arrival: </h4>
+        <h5 style="float:right; margin-left:100px; margin-top:15px">[Time Here]</h5>
+        <br> <br> <br> <br>
+        <!-- <h4 style="margin-top:15px;">Service Provider: </h4> -->
+        <!-- <br><br><br> -->
+        <!-- <p style="margin-top:0px; float:left;">[Details on Service Provider Here]</p> -->
+        <h4 style="margin-top:25px;">Google Maps API: </h4>
+        <!-- <br><br><br> -->
+        <p style="margin-top:0px; float:left;">[Map with Geolocation + ETA Here]</p><br>
+        
+        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
+        <!-- <br> -->
+        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
         <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
+        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
         </div>
-      </form>
+        <form onsubmit="return ValidateForm()" class="form-signin" name="Payment" method="POST" 
+        style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+        <br>
+        <h4 style="margin-bottom:15px; text-align:left;">Enter Payment Information</h4>
+        <h5 style="margin-bottom:0px;">Name on the Card</h5>
+        <input placeholder="Name" name="card_name" id="payment_name" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">Billing Address</h5>
+        <input placeholder="Address" name="billing_address" id="payment_address" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">City, State, Zip</h5>
+        <input placeholder="City, State and Zip" name="CSZ" id="city_state_zip" type="text" class="validate">        
+        <h5 style="margin-bottom:0px;">Card Number</h5>
+        <input placeholder="Card Number" name="card_number" id="card_number" type="number" class="validate">        
+        <div class="col-sm-6" style="width:50%; margin-left:-15px; float:left;">
+            <h5 style="margin-bottom:0px;">Expiry Date</h5>
+            <input placeholder="Expiry Date" name="expiry_date" id="expiry_date" type="text" class="validate">
+        </div>
+        <div style="width:50%; margin-right:0px; margin-left: 10px; float:left;">
+            <h5 style="margin-bottom:0px; margin-right:0px;">Security Code</h5>        
+            <input placeholder="Security Code" name="security_code" id="security_code" type="number" class="validate">        
+        </div>        
+        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
+        <!-- <br> -->
+        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+        <div style="margin:auto;">       
+        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
+        <input type="submit" class="btn btn-block btn-primary" value="Submit" style="margin:auto; text-align:center; font-size:20px; height:45px; 
+        margin-left:0px; background-color:grey;" name="payment_btn" >        
+        {{Empty_Input}}
+        </div>
+        </form>
     </div>
 
  

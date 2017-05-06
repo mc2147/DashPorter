@@ -36,11 +36,11 @@
 
     <body style="margin-bottom:0px;">
     
-    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <nav style="height:50px;" class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+<!--       <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
+ -->      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
 
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
@@ -58,31 +58,45 @@
   <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
     <!-- WEB CONTAINER DIV -->
-    <div class="col-md-5" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
-      <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
+    <script type="text/javascript">
+      function ValidateForm()
+      {
+        // var make=document.forms["Tow"]["make"].value;
+        // var model=document.forms["Tow"]["model"].value;
+        // var year=document.forms["Tow"]["year"].value;
+      if (!document.getElementById("FL").checked && !document.getElementById("FR").checked 
+      && !document.getElementById("RL").checked && !document.getElementById("RR").checked)
+        {
+          alert("Please check which tire(s) are flat");
+          return false;
+        }
+      }
+    </script>
+    <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;" onsubmit = "return ValidateForm()">
+    <div class="col-md-5 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <!-- <h2 style="text-align:left;">Information for Repair Truck:</h2> -->
         <!-- <br> -->
         <h3 style="margin-top:-15px; margin-bottom:25px;">Check All Tires That Are Flat:</h3>
         <div class="row" style="margin-bottom:5px">
             <p style="float:left; margin-left:20px; padding:0; line-height:20px;">
-             <input type="checkbox" value="Front Left" name="select_tire" id="Front Left" 
+             <input type="checkbox" value="Front Left" name="select_tire" id="FL" 
              style=" margin:0; padding:0; line-height:20px; transform: scale(1)">
              Front Left</p>  
              <p style="float:left; margin-left:200px; padding:0; line-height:20px;">
-             <input type="checkbox" value="Front Right" name="select_tire" id="Front Right" 
+             <input type="checkbox" value="Front Right" name="select_tire" id="FR" 
              style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
              Front Right </p>  
         </div>
         <div class="row" style="margin-bottom:5px">
-          <p style="float:left; padding:0; margin-left:20px; line-height:20px;">
-           <input type="checkbox" value="Rear Left" name="select_tire" id="Rear Left" 
-           style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
-           Rear Left </p>             
-          <p style="float:left; margin-left:205px; padding:0; line-height:20px;">
-           <input type="checkbox" value="Rear Right" name="select_tire" id="Rear Right" 
-           style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
-           Rear Right </p>  
+            <p style="float:left; padding:0; margin-left:20px; line-height:20px;">
+             <input type="checkbox" value="Rear Left" name="select_tire" id="RL" 
+             style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
+             Rear Left </p>             
+            <p style="float:left; margin-left:205px; padding:0; line-height:20px;">
+             <input type="checkbox" value="Rear Right" name="select_tire" id="RR" 
+             style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
+             Rear Right </p>  
         </div>
         <h3 style="margin-top:25px; margin-bottom:20px;">Were you in an accident?</h3>
         <div class="dropdown" style="margin-bottom:45px;">
@@ -106,7 +120,7 @@
         style="margin:auto; text-align:center; font-size:20px; width:50%; height:45px; margin-left:0px; background-color:grey;" name="to_payment_btn" >        
  -->   </div>        
     </div>
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:70px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:70px;">
         <h3 style="text-align:left; margin-top:15px; margin-bottom:35px;">Additional Comments:</h3>        
         <textarea style="margin-top:5px; margin-bottom:15px; width:100%; height:200px;" name="Text1" cols="40" rows="5" 
         placeholder="Write a message for your repairman here. (Describe your problem, urgent circumstances, etc.)" 
@@ -122,23 +136,74 @@
 
 
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
-        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Enter Car Information</h2>
-        <br>
-        <h3>Year</h3>
-        <input placeholder="Enter Year" id="first_name" type="text" class="validate">        
-        <h3>Make</h3>
-        <input placeholder="Enter Make" id="first_name" type="text" class="validate">
-        <h3>Model</h3>        
-        <input placeholder="Enter Model" id="first_name" type="text" class="validate">        
-        <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
+    <script type="text/javascript">
+      function M_ValidateForm()
+      {
+        // var make=document.forms["Tow"]["make"].value;
+        // var model=document.forms["Tow"]["model"].value;
+        // var year=document.forms["Tow"]["year"].value;
+      if (!document.getElementById("MFL").checked && !document.getElementById("MFR").checked 
+      && !document.getElementById("MRL").checked && !document.getElementById("MRR").checked)
+        {
+          alert("Please check which tire(s) are flat");
+          return false;
+        }
+      }
+    </script>
+    <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;" onsubmit = "return M_ValidateForm()">
+    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:70px;">
+      <h3 style="margin-top:-15px; margin-bottom:25px;">Check All Tires That Are Flat:</h3>
+        <div class="row" style="margin-bottom:5px">
+            <p style="float:left; margin-left:20px; padding:0; line-height:20px;">
+             <input type="checkbox" value="Front Left" name="select_tire" id="MFL" 
+             style=" margin:0; padding:0; line-height:20px; transform: scale(1)">
+             Front Left</p>  
+             <p style="float:left; margin-left:60px; padding:0; line-height:20px;">
+             <input type="checkbox" value="Front Right" name="select_tire" id="MFR" 
+             style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
+             Front Right </p>  
         </div>
-      </form>
-    </div>
+        <div class="row" style="margin-bottom:5px">
+          <p style="float:left; padding:0; margin-left:20px; line-height:20px;">
+           <input type="checkbox" value="Rear Left" name="select_tire" id="MRL" 
+           style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
+           Rear Left </p>             
+          <p style="float:left; margin-left:60px; padding:0; line-height:20px;">
+           <input type="checkbox" value="Rear Right" name="select_tire" id="MRR" 
+           style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
+           Rear Right </p>  
+        </div>
+        <h3 style="margin-top:25px; margin-bottom:20px;">Were you in an accident?</h3>
+        <div class="dropdown" style="margin-bottom:45px;">
+        <select class="form-control" style="width:75%;" name="accident" id="sel1">
+        <option name="Y_Accident">Yes</option>
+        <option name="N_Accident">No</option>
+        </select>  
+        </div>
 
+        <!-- <h3>Provider: </h3> -->
+        <div style="margin-top:40px; margin:auto;">       
+        <h3 style="margin-top:5px; margin-bottom:20px;">Are you stuck in a ditch?</h3>
+        <div class="dropdown" style="margin-bottom:25px;">
+        <select class="form-control" style="width:75%;" name="ditch" id="sel1">
+        <option name="Y_Ditch">Yes</option>
+        <option name="N_Ditch">No</option>
+        </select>  
+        </div>
+
+<!--         <input href="" type="submit" class="btn btn-block btn-primary" value="SUBMIT ANSWERS" 
+        style="margin:auto; text-align:center; font-size:20px; width:50%; height:45px; margin-left:0px; background-color:grey;" name="to_payment_btn" >        
+ -->   </div>
+       <h3 style="text-align:left; margin-top:15px; margin-bottom:35px;">Additional Comments:</h3>        
+        <textarea style="margin-top:5px; margin-bottom:10px; width:100%; height:200px;" name="Text1" cols="40" rows="5" 
+        placeholder="Write a message for your repairman here. (Describe your problem, urgent circumstances, etc.)" 
+        class="validate"></textarea>
+        <br>
+        <input href="" type="submit" class="btn btn-block btn-primary" value="SUBMIT INFORMATION" 
+        style="float:left; margin:auto; text-align:center; margin-top:0px; margin-bottom:10px;
+        font-size:20px; height:45px; margin-left:0px; background-color:grey;" name="to_details_btn" > 
+    </div>
+    </form>
  
    <!-- Bootstrap core JavaScript
     ================================================== -->

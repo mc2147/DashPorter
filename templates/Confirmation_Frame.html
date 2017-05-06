@@ -78,7 +78,7 @@
 
 
     <!-- WEB CONTAINER DIV -->
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
       <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:left;">Confirmation</h2>
@@ -99,13 +99,13 @@
         font-size:15px; height:40px; margin-left:0px; background-color:grey;" name="return_home_btn" >          
 
     </div>
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
         <h2 style="text-align:left;">Contact Your Provider</h2>        
         <textarea style="margin-top:5px; height:100px;" name="message_text" cols="40" rows="5" 
         placeholder="Enter a message for your tow truck driver here. (Describe your problem, any urgent circumstances, etc.)" 
         class="validate"></textarea>
-        <input type="submit" class="btn btn-primary" value="Send Message" style="margin:auto; text-align:center; 
-        font-size:15px; margin-top:5px; margin-bottom:10px; height:40px; margin-left:0px; background-color:grey;" name="add_message_btn" >
+        <input type="submit" class="btn btn-success" value="Send Message" style="margin:auto; text-align:center; 
+        font-size:15px; margin-top:5px; margin-bottom:10px; height:40px; margin-left:0px;" name="add_message_btn" >
         <br>
         {{Message_Received}}        
 <!--         <h5 style="margin-top:5px; margin-bottom:15px;">Driver's Phone Number: 773-123-4567</h5>
@@ -115,20 +115,29 @@
       </form>
 
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+    <div class="container hidden-sm-up" id="mobile" style="margin-bottom:30px !important; width:300px; 
+    margin-top:70px;">
+      <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Enter Car Information</h2>
+        <h2 style="text-align:left;">Confirmation</h2>
+        <p>You have requested <b>{{Service_Name}}</b> to be delivered to [location] in [Estimated Time of Arrival]</p>
+        <h3>Service Details</h3>
+        <p>{{Details}}</p>
+        <p>-More details here</p>
+        <h3 style="text-align:left;">Contact Your Provider</h3>        
+        <textarea style="margin-top:5px; height:100px;" name="message_text" cols="40" rows="5" 
+        placeholder="Enter a message for your tow truck driver here. (Describe your problem, any urgent circumstances, etc.)" 
+        class="validate"></textarea>
+        <input type="submit" class="btn btn-success" value="Send Message" name="add_message_btn" 
+        style="margin:auto; text-align:center; font-size:15px; margin-top:5px; margin-bottom:10px; height:40px; margin-left:0px;">
         <br>
-        <h3>Year</h3>
-        <input placeholder="Enter Year" id="first_name" type="text" class="validate">        
-        <h3>Make</h3>
-        <input placeholder="Enter Make" id="first_name" type="text" class="validate">
-        <h3>Model</h3>        
-        <input placeholder="Enter Model" id="first_name" type="text" class="validate">        
-        <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
-        </div>
+        {{Message_Received}}        
+<!--         <h5 style="margin-top:5px; margin-bottom:15px;">Driver's Phone Number: 773-123-4567</h5>
+        <input type="submit" class="btn btn-success btn-primary" value="Call" style="margin:auto; text-align:center; font-size:20px; height:40px; margin-left:0px; font-size:16px;" >
+ -->    <h2 style="margin-top:10px;">Google Maps API with ETA Here</h2>
+        <input type="submit" class="btn btn-primary" value="Return to Home" 
+        style="margin:auto; text-align:center; font-size:15px; 
+        margin-left:0px; background-color:grey; margin-bottom:10px;" name="return_home_btn">          
       </form>
     </div>
 

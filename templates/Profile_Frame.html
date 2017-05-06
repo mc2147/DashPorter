@@ -6,8 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- MATERIALIZE STARTS HERE -->
-    <link type="text/css" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css"  media="screen,projection"/>
+    <!--Import materialize.css-->    
+    <link type="text/css" rel="stylesheet" 
+    href = "{% static 'DashPorter\materialize_edited.css' %}"
+    media="screen,projection"/>
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
@@ -65,6 +67,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/support">Support</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" style="" name="log_out" href="/logout">Log Out</a>
+          </li>          
         </ul>
         </div>
         <!-- <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;">  -->
@@ -75,12 +80,11 @@
     </nav>  <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
     <!-- WEB CONTAINER DIV -->
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
       <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:left; margin-bottom:20px;">Your Profile</h2>
         <img src="{% static 'DashPorter/blank_profile.png' %}" width="200" height="200" class="img-fluid " alt="Generic placeholder thumbnail">
-
         <br><br>
         <h4 style="text-align:left;">Name: {{Name}}</h4>
         <h4 style="text-align:left;">Email: {{Email}}</h4>
@@ -91,11 +95,10 @@
         style="margin:auto; text-align:center; font-size:20px; margin-top:20px; height:45px; margin-left:0px; background-color:grey;">        
         <input href="/profile-requests" type="submit" class="btn btn-primary" value="View Request History" name="profile_requests_btn" 
         style="margin:auto; text-align:center; font-size:20px; margin-top:20px; height:45px; margin-left:10px; background-color:grey;">
-
         </form>
     </div>
 
-    <div class="col-md-6" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
+    <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; width:400px; margin-top:100px;">
         <form method="GET">
         <h2 style="text-align:left; margin-bottom:20px;">Your Cars</h2>    
         {%for car_row in Cars %}
@@ -109,7 +112,22 @@
         <p>{{Too_Many}}</p>
         </form>
     </div> 
-    <form method="GET">
+
+    <script>
+    function ValidateForm()
+      {
+        var make=document.forms["Cars"]["make"].value;
+        var model=document.forms["Cars"]["model"].value;
+        var year=document.forms["Cars"]["year"].value;
+      if (make==null || make=="", model==null || model=="", year==null || year=="")
+        {
+          alert("Please fill in all required fields");
+          return false;
+        }
+      }
+    </script>
+
+    <form method="GET" name="Cars" onsubmit="return ValidateForm()">
     <div class="modal fade" id="change_car" role="dialog">
         <div style="margin-top:0px; padding-bottom:0px; margin-bottom:0px;" class="modal-dialog modal-lg"> 
           <div class="modal-content" style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;">
@@ -135,7 +153,7 @@
                 <p style="float:left; margin-top:10px; margin-left:15px;"><b>OR</b> Add a Car:</p>
                 <input style="float:right; width:51%;" type = "text" name="make" class="validate" placeholder = "Make">
                 <input style="float:right; width:51%;" placeholder="Model" name="model" type="text" class="validate">        
-                <input style="float:right; width:51%;" placeholder="Year" name="year" type="text" class="validate">   
+                <input style="float:right; width:51%;" placeholder="Year" name="year" type="number" class="validate">   
                 <input style="margin-top:30px; margin-right:0px; margin-left:400px; float:right;" class="btn btn-primary" name="add_car_btn" 
                 type="submit" value ="Add Car">
               </div>
@@ -144,26 +162,176 @@
       </div>
       </form>
 
-
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+    <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:50px;">
+      <form class="form-signin" action="#" method="GET" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Enter Car Information</h2>
-        <br>
-        <h3>Year</h3>
-        <input placeholder="Enter Year" id="first_name" type="text" class="validate">        
-        <h3>Make</h3>
-        <input placeholder="Enter Make" id="first_name" type="text" class="validate">
-        <h3>Model</h3>        
-        <input placeholder="Enter Model" id="first_name" type="text" class="validate">        
-        <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
-        </div>
+        <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
+        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+        <h2 style="text-align:left; margin-bottom:20px;">Your Profile</h2>
+        <img src="{% static 'DashPorter/blank_profile.png' %}" width="200" height="200" class="img-fluid " alt="Generic placeholder thumbnail">
+
+        <br><br>
+
+        <h5 style="text-align:left;">Name: {{Name}}</h5>
+        <h5 style="text-align:left;">Email: {{Email}}</h5>
+        <h5 style="text-align:left;">Address: {{Address}}</h5>
+        <h5 style="text-align:left;">Phone Number: {{Number}}</h5>
+        <h4 style="text-align:left; margin-bottom:10px;">[Other Profile Information]</h4>
+        <!--  SUBMIT BUTTON FOR EDIT PROFILE -->
+      <!--         <input type="submit" class="btn btn-success" value="Edit" name="edit_profile_btn" 
+              style="text-align:center; font-size:15px; margin-top:10px; margin-left:0px;  padding-left:10px; padding-right:10px; margin-right:0px;"> 
+ -->        <!-- MODAL BUTTON FOR EDIT PROFILE -->
+        <button class="btn btn-success" data-toggle="modal" data-target="#mobile_edit_profile" type="button"
+        style="text-align:center; font-size:15px; margin-top:10px; margin-left:0px; padding-left:10px; padding-right:10px; margin-right:0px;">Edit</button>   
+
+        <input href="/profile-requests" type="submit" class="btn btn-primary" value="View Request History" 
+        name="profile_requests_btn" 
+        style="text-align:center; float:right; margin-right:-20px; font-size:15px; margin-top:10px; margin-left:0px; background-color:grey; padding-left:10px; padding-right:10px;">
+        </form>
+    
+        <form method="GET">
+        <h2 style="text-align:left; margin-top:20px; margin-bottom:10px;">Your Cars</h2>    
+        {%for car_row in Cars %}
+        <h4 style="text-align:left;">{{car_row.0}}</h4>
+        <p style="margin-bottom:0px;">Make: {{car_row.1}}</p>
+        <p style="margin-bottom:0px;">Model: {{car_row.2}}</p>
+        <p>Year: {{car_row.3}}</p>
+        {% endfor %}
+        <button class="btn btn-primary" data-toggle="modal" data-target="#mobile_change_car" type="button"
+        style="background-color:grey; text-align:center; font-size:20px; vertical-align:bottom; margin-top: 20px; height:45px; margin-left:0px;">Add/Remove Cars</button>         
+        <p>{{Too_Many}}</p>
+        </form>
+
       </form>
     </div>
+    <!-- MOBILE FORM -->    
+    
+    
+    <form method="GET" name="Profile" onsubmit="return ProfileValidateForm()">
+    <div class="modal fade" id="mobile_edit_profile" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">
+                  Edit Profile</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:10px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
 
- 
+<!--                 <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> Add a Car:</p>
+ -->            <!-- <label style="margin-bottom:0px;" for="first_name">First Name</label> -->
+    <!--                 <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">First Name</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="first_name" class="validate" placeholder = "{{First_Name}}">
+                    </div>
+                    <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">Last Name</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="last_name" class="validate" placeholder = "{{Last_Name}}">
+                    </div>
+                    <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">Phone number</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="new_number" class="validate" placeholder = "{{Name}}">
+                    </div>
+                    <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">Email/Username</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="new_email" class="validate" placeholder = "{{Email}}">
+                    </div>
+                    <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">Change Password</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="p_word_1" class="validate" placeholder = "New Password">
+                    </div>
+                    <div>
+                      <p style="margin-left:15px; margin-top:5px; display:inline;">Confirm New Password</p>
+                      <input style="float:right; padding:0px; text-align:left; margin-top:0px; margin-bottom:0px; margin-right:5px; width:60%;" 
+                      type = "text" name="p_word_2" class="validate" placeholder = "Re-type New Password">
+                    </div>
+ -->                <!-- EDIT PROFILE BUTTON -->
+        <label style="margin-bottom:0px;" for="first_name">First Name</label>
+        <label style="margin-bottom:0px; margin-top:5px; margin-left:22%;" for="last_name">Last Name</label>
+        <br>
+        <input style="width:46%; margin-bottom:0px;" 
+        placeholder="Enter New" value="{{First_Name}}" id="first_name" name="first_name" type="text" class="validate">
+        <input style="width:48%; margin-left:5px; margin-bottom:5px;" 
+        placeholder="Enter New" value="{{Last_Name}}" id="last_name" name="last_name" type="text" class="validate">
+
+        <label style="margin-bottom:0px;" for="new_email">Email/Username</label>
+        <input style="margin-top:0px; margin-bottom:5px;" placeholder="Enter New" value="{{Email}}" name="new_email" type="text" class="validate">        
+        <label style="margin-bottom:0px;" for="new_number">Phone Number</label>
+        <input style="margin-top:0px; margin-bottom:5px;" placeholder="Enter New" value="{{Number}}" name="new_number" type="text" class="validate">        
+        <label style="margin-bottom:0px;" for="password">Change Password</label>        
+        <input placeholder="New Password" name="p_word_1" type="password" class="validate" style="margin-bottom:5px;">        
+        <input placeholder="Re-type New Password" name="p_word_2" type="password" class="validate" style="margin-bottom:0px;">
+
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px;" 
+                class="btn btn-success" name="edit_profile_btn" 
+                type="submit" value ="Save Changes">
+        </div>
+
+
+          </div>
+        </div>
+      </div>
+
+
+    <div class="modal fade" id="mobile_change_car" role="dialog" 
+    style="padding:0px; height:600px;">
+        <div 
+        style="padding:0px; margin:0px; margin-top:0px; padding-bottom:0px; margin-bottom:0px;" 
+        class="modal-dialog modal-lg"> 
+          <div class="modal-content" 
+          style="margin:0px; margin-top:0px; padding:0px; margin-bottom:0px; padding-bottom:0px;">
+              <div style="margin-top:0px; margin-bottom:0px;" class="modal-header">
+                <button type="button" 
+                  style="margin-top: 0px; margin-right:10px;" class="close" data-dismiss="modal">&times;</button>
+                  <h5 style="margin-top:0px; text-align:left; margin-left:0px;" class="modal-title">
+                  Add/Remove Cars</h5>
+              </div>              
+              <div class="modal-body" 
+                style="margin:0px; padding-left:0px; padding-bottom:0px; margin-bottom:0px; padding-top:0px;">
+                <div style="margin-top:0px; margin-bottom:0px; padding-bottom:0px;" class="col-sm-12">
+                <label style="margin-top:0px;" for="sel1">Select Car to Remove</label><br>
+                <div class="dropdown" style="width:50%; display: inline;">
+                <select class="form-control" style="width:60%; display: inline; margin-left:0px; margin-right:5px;" 
+                name="selected_car" id="selected_car"> <!-- id="selected_car_OC"> -->
+                  {% for row in No_Cars %}
+                  <option>{{row}}</option>
+                  {% endfor %}                  
+                  {% for row in Car_Names %}
+                  <option value={{row.1}}>{{row.0}}</option>
+                  {% endfor %}
+                </select>  
+               </div>
+                <input style="float:right; margin-top:0px; margin-right:-20px; height:calc(2.25rem + 2px);" 
+                class="btn btn-danger" name="remove_car_btn" type="submit" value="Remove">
+              </div>
+                <p style="float:left; margin-top:10px; margin-bottom:0px; margin-left:15px;">
+                <b>OR</b> Add a Car:</p>
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" 
+                type = "text" name="make" class="validate" placeholder = "Make">
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Model" name="model" type="text" class="validate">        
+                <input style="text-align:center; margin-top:0px; margin-bottom:0px; margin-left:15px; width:70%;" placeholder="Year" name="year" 
+                type="number" class="validate"><br>   
+                <input style="text-align:center; margin-top:15px; margin-bottom:10px; margin-right:0px; margin-left:15px;" 
+                class="btn btn-success" name="add_car_btn" 
+                type="submit" value ="Add Car">
+              </div>
+          </div>
+        </div>
+      </div>
+      </form> 
    <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

@@ -1,4 +1,4 @@
-
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,48 +35,44 @@
     <body style="margin-bottom:0px;">
     <div>
     <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
-      <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+<!--       <button style="margin-left:10px;" class="navbar-toggler navbar-toggler-right hidden-lg-up" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
-        <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;" action="/home">
+ -->      <!-- <a class="navbar-brand" href="#">DashPorter</a> -->
+<!--         <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;" action="/emergency-service">
           <button class="btn btn-outline-danger my-2 my-sm-0" style="margin-top:30px;" type="submit">EMERGENCY SERVICES</button>
-        </form>
+        </form> -->
 
-      <img src="Images/Logo.jpg" style="float:right; width:40px !important; margin-left:370px; display:block;">
+      <img src="{% static 'Logo.png' %}" style="width:50px !important; margin-top:0px; margin-bottom:0px; margin:auto; display:block;">
     </nav>   
     </div>
-    
-    <!-- MOBILE VS WEB -->
-    <!-- Margin-Top: 30px for mobile, 80 px for web -->
-
 
     <!-- WEB CONTAINER DIV -->
     <div class="container hidden-sm-down" id="web" style="margin-bottom:30px !important; width:300px; margin-top:80px;">
 
-      <form class="form-signin" action="#" method="GET" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
-        <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
+      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <h2 style="text-align:center;">Log In</h2>
         <br>
         <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus>
         <br>
         <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
+        {{Empty_Input}}
         <div style="margin:auto; ">       
         
-        <input type="submit" class="btn btn-block btn-social btn-primary" value="Login" style="width:48%; margin:auto; padding-left:37px; text-align:left; font-size:20px; height:45px; margin-right:10px; background-color:grey; float:left;" name="login_btn" > 
-        
-        <a style="margin-left:150px; font-size:20px; background-color:#7B99CC; color:white; text-align:center; width:44%; height:45px;" class="btn btn-block btn-social btn-facebook">
-        <span style="font-size:20px; margin:2px; margin-top: 5px; padding-bottom:5px; padding-top:0px;" class="fa fa-facebook"></span>
-        Login
-        </a>
-      
+        <input type="submit" class="btn btn-block btn-social btn-primary" value="Login" style="margin:auto; text-align:center; font-size:20px; 
+        height:45px; margin-right:10px; margin-bottom:10px; background-color:grey; float:left;" name="login_btn" >         
       </form>
 
-        <p style="text-align:center; margin-top:25px; margin-bottom:25px;">OR</p>
-        <form action="/signup">
-        <input type="submit" class="btn btn-block btn-social btn-primary" value="Create Account Here" style="margin:auto; padding-left:37px; text-align:left; font-size:20px; height:45px; margin-right:10px; background-color:grey; float:left;" name="go_to_create_account" > 
+        <p style="text-align:center; margin-top:30px; margin-bottom:10px;">OR</p>
+        <form action="/emergency-service">
+        <input type="submit" class="btn btn-block btn-social btn-danger" value="Emergency Services" style="margin:auto; padding-left:37px; text-align:left; font-size:20px; height:45px; margin-bottom:20px; margin-right:10px; float:left;"> 
         </form>
+        <br><br>
+        <a href="/signup" style="margin-top:20px;"><u>Create Account Here</u></a>
+        <!--         <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;" action="/signup">
+          <button class="btn btn-outline-danger my-2 my-sm-0" style="margin-top:30px;" type="submit">EMERGENCY SERVICES</button>
+        </form> -->
+
         <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Log In" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6; text-align:center;" name="s-login" >
         <p style="margin-top:3px; margin-bottom:3px; text-align:center; font-size:20px;">or</p>
         <a style="font-size:20px; color:white; text-align:center;" class="btn btn-block btn-social btn-facebook">
@@ -92,7 +88,7 @@
 
     <!-- MOBILE CONTAINER DIV  -->
     <div class="container hidden-sm-up" id="mobile" style="margin-bottom:30px !important; width:300px; margin-top:30px;"> 
-     <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
+     <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <br><br><br>
         <h2 style="text-align:center;">Log In</h2>
@@ -100,7 +96,7 @@
         <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus>
         <br>
         <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-
+        {{Empty_Input}}
         <div style="margin:auto;">       
 <!--         <input type="submit" class="btn btn-block btn-social btn-primary" value="Log In" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" >
         <p style="margin-top:3px; margin-bottom:3px; text-align:center; font-size:20px;">or</p>        
@@ -109,13 +105,16 @@
         Facebook Login
         </a>
  -->        
+        <input type="submit" class="btn btn-block btn-social btn-primary" value="Login" style="margin:auto; text-align:center; font-size:20px; 
+        height:45px; margin-right:10px; margin-bottom:10px; background-color:grey; float:left;" name="login_btn" >         
+      </form>
 
-        <input type="submit" class="btn btn-block btn-social btn-primary" value="LOGIN" style="width:48%; margin:auto; padding-left:37px; text-align:left; font-size:20px; height:45px; margin-right:10px; background-color:grey; float:left;" name="s-login" > 
-
-       <a style="font-size:20px; background-color:#7B99CC !important; color:white;  text-align:left; width:48%; height:45px;" class="btn btn-block btn-social btn-facebook">
-        <span style="font-size:20px; background-color:#7B99CC !important; margin:2px; margin-top: 5px; padding-bottom:5px; padding-top:0px;" class="fa fa-facebook"></span>
-        LOGIN
-        </a>
+        <p style="text-align:center; margin-top:30px; margin-bottom:10px;">OR</p>
+        <form action="/emergency-service">
+        <input type="submit" class="btn btn-block btn-social btn-danger" value="Emergency Services" style="margin:auto; padding-left:37px; text-align:left; font-size:20px; height:45px; margin-bottom:20px; margin-right:10px; float:left;"> 
+        </form>
+        <br><br>
+        <a href="/signup" style="margin-top:20px;"><u>Create Account Here</u></a>
 
         </div>
       </form>

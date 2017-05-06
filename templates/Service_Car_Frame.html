@@ -16,7 +16,7 @@
     <!-- MATERIALIZE ENDS -->
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Add a Car - DashPorter</title>
+    <title>Tow Service - DashPorter</title>
 
     <!-- Bootstrap core CSS -->
     <link href="https://v4-alpha.getbootstrap.com/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,12 +51,12 @@
       <div class="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="/home">Services</a>
+            <a class="nav-link active" href="/return-home">Return To Services</a>
           </li>
-          <li class="nav-item">
+<!--           <li class="nav-item">
             <a class="nav-link" href="/profile">Profile</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="/add-car">Add Car</a>
           </li>
           <li class="nav-item">
@@ -65,9 +65,9 @@
           <li class="nav-item">
             <a class="nav-link" href="/support">Support</a>
           </li>
-        </ul>
+ -->        </ul>
         </div>
-        <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;"> 
+        <!-- <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;">  -->
          <!-- margin-bottom:0px; margin-top:0px; margin-right:50px;"> -->
         <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;">
           <button class="btn btn-outline-success my-2 my-sm-0" style="margin-top:30px;" type="submit">Routine Maintenance</button>
@@ -75,51 +75,73 @@
     </nav>   
   <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
-
-
     <!-- WEB CONTAINER DIV -->
-    <div class="container hidden-sm-down" id="web" style="margin-bottom:30px !important; width:400px; margin-top:150px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+    <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
+    <div class="col-md-5 responsive hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:left;">Confirm Car Details</h2>
-        <br>
-        <h3>Make: Honda</h3>
-        <br>
-        <h3>Model: Civic</h3>
-        <br>
-
-        <h3>Year: 2003</h3>
-        <br>
-        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
-        <!-- <br> -->
-        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
-        <div style="margin:auto;">       
-        <br>
-        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
-        <a type="submit" class="btn btn-block btn-primary" value="Yes, This Is My Car" 
-        style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;"
-        name="add_car_btn" href="/service-details">Yes, This Is My Car</a>        
+        <h2 style="text-align:left;">Information for Tow Truck:</h2>
+        <h3 style="margin-top:60px; margin-bottom:20px;">Were you in an accident?</h3>
+        <div class="dropdown" style="margin-bottom:85px;">
+        <select class="form-control" style="width:75%;" name="accident" id="accident">
+        <option name="Y_Accident">Yes</option>
+        <option name="N_Accident">No</option>
+        </select>  
         </div>
-      </form>
+
+        <!-- <h3>Provider: </h3> -->
+        <div style="margin-top:60px; margin:auto;">       
+        <h3 style="margin-top:25px; margin-bottom:20px;">Are you stuck in a ditch?</h3>
+        <div class="dropdown" style="margin-bottom:25px;">
+          <select class="form-control" style="width:75%;" name="ditch" id="ditch">
+          <option name="Y_Ditch">Yes</option>
+          <option name="N_Ditch">No</option>
+          </select>  
+        </div>
+        </div>        
     </div>
+
+    <div class="col-md-6 responsive hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:70px;">
+        <h2 style="text-align:left; margin-top:30px; margin-bottom:35px;">Additional Comments:</h2>        
+        <textarea style="margin-top:5px; margin-bottom:15px; width:100%; height:200px;" name="Text1" cols="40" rows="5" 
+        placeholder="Write a message for your tow truck driver here. (Describe your problem, urgent circumstances, etc.)" 
+        class="validate"></textarea>
+        <br>
+        <input href="" type="submit" class="btn btn-block btn-primary" value="SUBMIT INFORMATION" 
+        style="float:right; margin:auto; text-align:center; margin-top:125px; font-size:20px; width:50%; height:45px; margin-left:0px; background-color:grey;" name="to_details_btn" >        
+    </div>
+    </form>
 
     <!-- MOBILE CONTAINER DIV -->
+    <form method="GET">
     <div class="container hidden-sm-up" id="web" style="margin-bottom:30px !important; width:300px; margin-top:30px;">
-      <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
-        <h2 style="text-align:center;">Car to Be Serviced:</h2>
-        <br>
-        <h3>Year</h3>
-        <input placeholder="Enter Year" id="first_name" type="text" class="validate">        
-        <h3>Make</h3>
-        <input placeholder="Enter Make" id="first_name" type="text" class="validate">
-        <h3>Model</h3>        
-        <input placeholder="Enter Model" id="first_name" type="text" class="validate">        
-        <div style="margin:auto;">       
-        <input type="submit" class="btn btn-block btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:grey;" >
+        <h3 style="text-align:left; margin-top:70px;">Required Information for Tow Service:</h3>
+        <h4 style="margin-top:10px; margin-bottom:10px;">Were you in an accident?</h4>
+        <div class="dropdown" style="margin-bottom:0px;">
+        <select class="form-control" style="width:75%;" name="accident" id="accident">
+        <option name="Y_Accident">Yes</option>
+        <option name="N_Accident">No</option>
+        </select>  
+        </div> 
+        <!-- <h3>Provider: </h3> -->
+        <div style="margin-top:0px; margin:auto;">       
+        <h4 style="margin-top:15px; margin-bottom:10px;">Are you stuck in a ditch?</h4>
+        <div class="dropdown" style="margin-bottom:15px;">
+          <select class="form-control" style="width:75%;" name="ditch" id="ditch">
+          <option name="Y_Ditch">Yes</option>
+          <option name="N_Ditch">No</option>
+          </select>  
         </div>
-      </form>
+        </div>        
+        <h3 style="text-align:left; margin-top:10px; margin-bottom:10px;">Additional Comments:</h3>        
+        <textarea style="margin-top:5px; margin-bottom:0px; width:100%; height:200px;" name="Text1" cols="40" rows="5" 
+        placeholder="Write a message for your tow truck driver here. (Describe your problem, urgent circumstances, etc.)" 
+        class="validate"></textarea>
+        <br>
+        <input href="" type="submit" class="btn btn-block btn-primary" value="SUBMIT INFORMATION" 
+        style="font-size:15px; margin:auto; text-align:center; margin-top:25px; width:75%; height:45px; margin-left:0px; background-color:grey;" name="to_details_btn" >        
     </div>
+    </form>
 
  
    <!-- Bootstrap core JavaScript
