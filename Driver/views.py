@@ -213,7 +213,8 @@ def Home(request):
 			driver.current_car_id = 0
 			driver.save()
 #			NEW REQUEST			
-			new_request = Request(requester=driver.user.username, service=current_service.name, cost=current_service.cost)
+			new_request = Request(requester=driver.user.username, service=current_service.name, 
+							cost=current_service.cost, time_created = datetime.datetime.now())
 			new_request.save()
 			driver.requests.add(new_request)
 			driver.save()			
@@ -265,7 +266,8 @@ def Home(request):
 			driver.current_car_id = 0
 			driver.save()			
 #			NEW REQUEST			
-			new_request = Request(requester=driver.user.username, service=current_service.name, cost=current_service.cost)
+			new_request = Request(requester=driver.user.username, service=current_service.name, 
+							cost=current_service.cost, time_created = datetime.datetime.now())
 			new_request.save()
 			driver.requests.add(new_request)
 			driver.save()
@@ -314,7 +316,8 @@ def Home(request):
 			driver.current_car_id = 0
 			driver.save()			
 #			NEW REQUEST			
-			new_request = Request(requester=driver.user.username, service=current_service.name, cost=current_service.cost)
+			new_request = Request(requester=driver.user.username, service=current_service.name, 
+							cost=current_service.cost, time_created = datetime.datetime.now())
 			new_request.save()
 			driver.requests.add(new_request)
 			driver.save()
@@ -362,7 +365,8 @@ def Home(request):
 			driver.current_car_id = 0
 			driver.save()
 
-			new_request = Request(requester=driver.user.username, service=current_service.name, cost=current_service.cost)
+			new_request = Request(requester=driver.user.username, service=current_service.name, 
+							cost=current_service.cost, time_created = datetime.datetime.now())
 			new_request.save()
 			driver.requests.add(new_request)
 			driver.save()			
@@ -410,7 +414,8 @@ def Home(request):
 			driver.current_car_id = 0
 			driver.save()
 
-			new_request = Request(requester=driver.user.username, service=current_service.name, cost=current_service.cost)
+			new_request = Request(requester=driver.user.username, service=current_service.name, 
+							cost=current_service.cost, time_created = datetime.datetime.now())
 			new_request.save()
 			driver.requests.add(new_request)
 			driver.save()	
@@ -844,21 +849,27 @@ def ProfileRequests(request):
 
 @user_passes_test(Driver_Check)
 def About(request):
-	
+	user = request.user
+	print(Driver_Check(user))
 	return render(request, "About_Frame.html")
 
 @user_passes_test(Driver_Check)
 def Support(request):
-	
 	return render(request, "Support_Frame.html")
 
 #EMERGENCY MODE/ROADSIDE ASSISTANCE STARTS HERE
 def E_Home(request):
 	context = {}
-	if "Request_PK" in request.session:
+	if ("Request_PK" in request.session):
 		check_request = Request.objects.get(pk=request.session["Request_PK"])
 		if check_request.confirmed == False:
 			check_request.delete()
+		request.session.pop("Request_PK")
+	if ("Car_PK" in request.session):
+		check_car = Car.objects.get(pk=request.session["Car_PK"])
+		if check_car.temporary == True:
+			check_car.delete()
+		request.session.pop("Car_PK")
 
 	if request.GET.get("Tow_info_car"):
 		request.session["Service_Key"] = 1 #2 is Flat Tire
@@ -874,11 +885,12 @@ def E_Home(request):
 		temp_car.temporary = True;			
 		temp_car.selected = True;
 		temp_car.save()
+		request.session["Car_PK"] = temp_car.pk
 		request.session["Car_Make"] = temp_car_make
 		request.session["Car_Model"] = temp_car_model
 		request.session["Car_Year"] = temp_car_year
 #		NEW REQUEST			
-		new_request = Request(service=current_service.name, cost=current_service.cost)
+		new_request = Request(service=current_service.name, cost=current_service.cost, time_created = datetime.datetime.now())
 		new_request.car = temp_car
 		new_request.save()
 		request.session["Request_PK"] = new_request.pk
@@ -903,7 +915,7 @@ def E_Home(request):
 		request.session["Car_Model"] = temp_car_model
 		request.session["Car_Year"] = temp_car_year
 #		NEW REQUEST			
-		new_request = Request(service=current_service.name, cost=current_service.cost)
+		new_request = Request(service=current_service.name, cost=current_service.cost, time_created = datetime.datetime.now())
 		new_request.car = temp_car
 		new_request.save()
 		request.session["Request_PK"] = new_request.pk
@@ -925,7 +937,7 @@ def E_Home(request):
 		request.session["Car_Model"] = temp_car_model
 		request.session["Car_Year"] = temp_car_year
 #		NEW REQUEST			
-		new_request = Request(service=current_service.name, cost=current_service.cost)
+		new_request = Request(service=current_service.name, cost=current_service.cost, time_created = datetime.datetime.now())
 		new_request.car = temp_car
 		new_request.save()
 		request.session["Request_PK"] = new_request.pk
@@ -947,7 +959,7 @@ def E_Home(request):
 		request.session["Car_Model"] = temp_car_model
 		request.session["Car_Year"] = temp_car_year
 #		NEW REQUEST			
-		new_request = Request(service=current_service.name, cost=current_service.cost)
+		new_request = Request(service=current_service.name, cost=current_service.cost, time_created = datetime.datetime.now())
 		new_request.car = temp_car
 		new_request.save()
 		request.session["Request_PK"] = new_request.pk
@@ -969,95 +981,12 @@ def E_Home(request):
 		request.session["Car_Model"] = temp_car_model
 		request.session["Car_Year"] = temp_car_year
 #		NEW REQUEST			
-		new_request = Request(service=current_service.name, cost=current_service.cost)
+		new_request = Request(service=current_service.name, cost=current_service.cost, time_created = datetime.datetime.now())
 		new_request.car = temp_car
 		new_request.save()
 		request.session["Request_PK"] = new_request.pk
 		return HttpResponseRedirect('/emergency-service-details')
 	return render(request, "Roadside_Home.html", context)
-
-def E_ServiceDetails(request):
-	service_key = request.session["Service_Key"]
-	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
-	current_service = Service.objects.get(id_num = service_key)
-	context = {}
-	context["Service_Name"] = current_service.name
-	context["Cost"] = current_service.cost
-	context["Car_Name"] = car_name
-	context["ETA"] = current_service.estimated_time
-
-	if request.GET.get("to_payment_btn"):
-		print("payment button hit")
-		return HttpResponseRedirect("/emergency-service-payment")
-	return render(request, "Roadside_Details.html", context)
-
-def E_ServicePayment(request):
-	service_key = request.session["Service_Key"]
-	request_pk = request.session["Request_PK"]
-	context = {}
-	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
-	current_service = Service.objects.get(id_num = service_key)
-	current_request = Request.objects.get(pk=request_pk)
-	car_year = request.session["Car_Year"]
-	context["Service_Name"] = current_service.name
-	context["Cost"] = current_service.cost
-	context["Car_Name"] = car_name
-	context["ETA"] = current_service.estimated_time
-	service_total = current_service.cost + 20 #arbitrary right now
-	context["Total"] = service_total
-	
-	if request.POST.get("payment_btn"):
-		cardholder_name = request.REQUEST.get("payment_name")
-		billing_address = request.REQUEST.get("payment_address")
-		city_state_zip = request.REQUEST.get("city_state_zip")
-		card_number = request.REQUEST.get("card_number")
-		expiry_date = request.REQUEST.get("expiry_date")
-		security_code = request.REQUEST.get("security_code")
-		phone_num = request.REQUEST.get("phone_num")
-		if (cardholder_name == "" or billing_address == "" or city_state_zip == "" or 
-			card_number == "" or expiry_date == "" or security_code == ""):
-			context["Empty_Input"] = "Please fill in all required form fields"
-		else:
-			new_contact = Contact(phone_number = phone_num)
-			new_contact.save()
-			current_request.contact = new_contact
-			current_request.confirmed = True
-			current_request.car_info = car_name + " " + car_year
-			current_request.save()			
-		return HttpResponseRedirect("/emergency-service-receipt")
-	return render(request, "Roadside_Payment.html", context)
-
-def E_ServiceReceipt(request):
-	context = {}
-	service_key = request.session["Service_Key"]
-	request_pk = request.session["Request_PK"]
-	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
-	current_service = Service.objects.get(id_num = service_key)
-	current_request = Request.objects.get(pk=request_pk)
-	context["Service_Name"] = current_service.name
-	context["Cost"] = current_service.cost
-	context["Car_Name"] = car_name
-	context["ETA"] = current_service.estimated_time
-	service_total = current_service.cost + 20 #arbitrary right now
-	context["Total"] = service_total
-
-	if request.GET.get("add_message_btn"):
-		print(request.session["Request_PK"])
-		message = request.REQUEST.get("message_text")
-		print(message)
-		current_request.message = current_request.message + " " + message
-		current_request.save()
-		if message != "":
-			context["Message_Received"] = "Your message has been sent!"
-		else:
-			context["Message_Received"] = "Please include some text in your message body!"
-		# return HttpResponseRedirect("/service-receipt")		
-	if request.GET.get("return_services"):
-		return HttpResponseRedirect("/emergency-service")
-	if request.GET.get("create_account"):
-		return HttpResponseRedirect("/signup")
-
-	return render(request, "Roadside_Confirmation.html", context)
 
 def E_ServiceTow(request):
 	service_key = request.session["Service_Key"]
@@ -1085,14 +1014,17 @@ def E_ServiceTow(request):
 		if (accident_answer == "Yes"):
 			current_request.accident = True
 			current_request.save()
+		message = request.REQUEST.get("message_body")
+		current_request.message = current_request.message + " " + message
+		current_request.save()
 		#code to save information here
 		return HttpResponseRedirect("/emergency-service-details")
 	return render(request, "Roadside_Tow_Service.html", context)
 
 def E_ServiceFlat(request):
+	context = {}
 	service_key = request.session["Service_Key"]
 	request_pk = request.session["Request_PK"]
-	context = {}
 	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
 	current_service = Service.objects.get(id_num = service_key)
 	current_request = Request.objects.get(pk=request_pk)
@@ -1103,26 +1035,127 @@ def E_ServiceFlat(request):
 	context["ETA"] = current_service.estimated_time
 	service_total = current_service.cost + 20 #arbitrary right now
 	context["Total"] = service_total
+
 	if request.GET.get("to_details_btn"):
 		ditch_answer = request.REQUEST.get("ditch")
 		print("Ditch answer: " + ditch_answer)
 		if (ditch_answer == "Yes"):
 			current_request.in_ditch = True
 			current_request.save()
-
 		accident_answer = request.REQUEST.get("accident")
 		print("Accident answer: " + accident_answer)
 		if (accident_answer == "Yes"):
 			current_request.accident = True
 			current_request.save()
-
 		tire_list = request.GET.getlist("select_tire")
-		for i in tire_list:
+
+		message = request.REQUEST.get("message_body")
+		current_request.message = current_request.message + " " + message
+		current_request.save()
+
+ 		for i in tire_list:
+			print(i)
 			current_request.flat_tires = current_request.flat_tires + i + ", "
 			current_request.save()
+		if len(tire_list) > 1:
+			request.session["Service_Key"] = 1
+			current_service = Service.objects.get(id_num = 1)
+			print(current_service.name)
+			current_request.service = current_service.name
+			current_request.save()
+			request.session["From_Flat"] = True
+			return HttpResponseRedirect("/emergency-service-details")
 			#code to save information here
 		return HttpResponseRedirect("/emergency-service-details")
 	return render(request, "Roadside_Flat_Tire.html", context)
+
+def E_ServiceDetails(request):
+	# if ("From_Flat" in request.session) and (request.session[From_Flat] == True):
+	# 	
+	service_key = request.session["Service_Key"]
+	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
+	current_service = Service.objects.get(id_num = service_key)
+	context = {}
+	context["Service_Name"] = current_service.name
+	context["Cost"] = current_service.cost
+	context["Car_Name"] = car_name
+	context["ETA"] = current_service.estimated_time
+
+	if request.GET.get("to_payment_btn"):
+		print("payment button hit")
+		return HttpResponseRedirect("/emergency-service-payment")
+	return render(request, "Roadside_Details.html", context)
+
+def E_ServicePayment(request):
+	context = {}
+	service_key = request.session["Service_Key"]
+	request_pk = request.session["Request_PK"]
+	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
+	current_service = Service.objects.get(id_num = service_key)
+	current_request = Request.objects.get(pk=request_pk)
+	car_year = request.session["Car_Year"]
+	context["Service_Name"] = current_service.name
+	context["Cost"] = current_service.cost
+	context["Car_Name"] = car_name
+	context["ETA"] = current_service.estimated_time
+	context["Travel_Fee"] = 20.00
+	context["Tax"] = round(current_service.cost*0.13, 2)
+	context["Total"] = current_service.cost + 20.00 + round(current_service.cost*0.13, 2)
+	
+	if request.POST.get("payment_btn"):
+		cardholder_name = request.REQUEST.get("payment_name")
+		billing_address = request.REQUEST.get("payment_address")
+		city_state_zip = request.REQUEST.get("city_state_zip")
+		card_number = request.REQUEST.get("card_number")
+		expiry_date = request.REQUEST.get("expiry_date")
+		security_code = request.REQUEST.get("security_code")
+		phone_num = request.REQUEST.get("phone_num")
+		print(phone_num)
+		email = request.REQUEST.get("email")
+		# DO EMPTY/NULL CHECK IN JAVASCRIPT LATER
+			# if (cardholder_name == "" or billing_address == "" or city_state_zip == "" or 
+			# 	card_number == "" or expiry_date == "" or security_code == ""):
+			# 	context["Empty_Input"] = "Please fill in all required form fields"
+		new_contact = Contact(phone_number = str(phone_num), email = email, phone_num = phone_num)
+		new_contact.save()
+
+		current_request.contact = new_contact
+		current_request.confirmed = True
+		current_request.save()			
+		return HttpResponseRedirect("/emergency-service-receipt")
+	return render(request, "Roadside_Payment.html", context)
+
+def E_ServiceReceipt(request):
+	context = {}
+	request_pk = request.session["Request_PK"]
+	service_key = request.session["Service_Key"]
+	car_name = request.session["Car_Make"] + " " + request.session["Car_Model"]
+	current_service = Service.objects.get(id_num = service_key)
+	current_request = Request.objects.get(pk=request_pk)
+	context["Service_Name"] = current_service.name
+	context["Cost"] = current_service.cost
+	context["Car_Name"] = car_name
+	context["ETA"] = current_service.estimated_time
+	service_total = current_service.cost + 20 #arbitrary right now
+	context["Total"] = service_total
+
+	if request.GET.get("add_message_btn"):
+		print(request.session["Request_PK"])
+		message = request.REQUEST.get("message_text")
+		print(message)
+		current_request.message = current_request.message + " " + message
+		current_request.save()
+		if message != "":
+			context["Message_Received"] = "Your message has been sent!"
+		else:
+			context["Message_Received"] = "Please include some text in your message body!"
+		# return HttpResponseRedirect("/service-receipt")		
+	if request.GET.get("return_services"):
+		return HttpResponseRedirect("/emergency-service")
+	if request.GET.get("create_account"):
+		return HttpResponseRedirect("/signup")
+
+	return render(request, "Roadside_Confirmation.html", context)
 
 #DISPATCH STARTS HERE
 #DISPATCH STARTS HERE
@@ -1158,22 +1191,25 @@ def DispatchDisplay(request):
 
 	for i in Request.objects.all():
 		if (i.claimed == False):
+			print("Request Contact email: " + i.contact.email)
+			print("Request Contact phone: " + i.contact.phone_number)
+			car_info = i.car.make + "/" + i.car.model + "/" + str(i.car.year)
+			email = i.contact.email
+			phone = i.contact.phone_number
 			row = []
 			row.append(i.service) #0 is service type
-			row.append(i.requester) #1 is requester username
-			row.append(i.car_info) #2 is car info
+			row.append(email + " / " + str(phone)) #1 is contact info
+			row.append(car_info) # 2 is car info
 			row.append(str(i.time_created)) #3 is time created
-			if (i.in_ditch):
+			row.append(i.message) #4 is message
+			if (i.in_ditch): #5 is whether in ditch or not
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.in_ditch)) #4 is whether in ditch or not
-			if (i.accident):
+			if (i.accident): #6 is whether in accident or not
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.accident)) #5 is in accident or not
-			row.append(i.message) #6 is message
 			row.append(i.flat_tires) #7 is flat tires
 			row.append(str(i.pk)) #8 is id_number
 			row.append("C" + str(i.pk)) #9 is button code
@@ -1221,47 +1257,53 @@ def DispatchAccountRequests(request):
 
 	for i in dispatcher.requests.all():
 		if (i.completed == False):
+			car_info = i.car.make + "/" + i.car.model + "/" + str(i.car.year)
+			email = i.contact.email
+			phone = i.contact.phone_number
 			row = []
 			row.append(i.service) #0 is service type
-			row.append(i.requester) #1 is requester username
-			row.append(i.car_info) # 2 is car info
+			row.append(email + " / " + phone) #1 is contact info
+			row.append(car_info) # 2 is car info
 			row.append(str(i.time_created)) #3 is time created
+			row.append(i.message) #4 is message
 			if (i.in_ditch):
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.in_ditch)) #4 is whether in ditch or not
+	#		row.append(str(i.in_ditch)) #5 is whether in ditch or not
 			if (i.accident):
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.accident)) #5 is in accident or not
-			row.append(i.message) #6 is message
+	#		row.append(str(i.accident)) #6 is in accident or not
 			row.append(i.flat_tires) #7 is flat tires
 			row.append(str(i.pk)) #8 is id_number
 			row.append("C" + str(i.pk)) #9 is button code
 			context["Requests"].append(row)
 		if (i.completed):
+			car_info = i.car.make + "/" + i.car.model + "/" + str(i.car.year)
+			email = i.contact.email
+			phone = i.contact.phone_number
 			row = []
 			row.append(i.service) #0 is service type
-			row.append(i.requester) #1 is requester username
-			row.append(i.car_info) # 2 is car info
+			row.append(email + " / " + phone) #1 is contact info
+			row.append(car_info) # 2 is car info
 			row.append(str(i.time_created)) #3 is time created
+			row.append(i.message) #4 is message
 			if (i.in_ditch):
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.in_ditch)) #4 is whether in ditch or not
+	#		row.append(str(i.in_ditch)) #5 is whether in ditch or not
 			if (i.accident):
 				row.append("Y")
 			else:
 				row.append("N")
-	#		row.append(str(i.accident)) #5 is in accident or not
-			row.append(i.message) #6 is message
+	#		row.append(str(i.accident)) #6 is in accident or not
 			row.append(i.flat_tires) #7 is flat tires
 			row.append(str(i.pk)) #8 is id_number
 			row.append("C" + str(i.pk)) #9 is button code
-			context["Requests_Completed"].append(row)			
+			context["Requests_Completed"].append(row)
 	#Claimed requests
 	if request.GET.get("delete"):
 		for i in dispatcher.requests.all():

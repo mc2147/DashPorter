@@ -24,9 +24,9 @@ urlpatterns = [
     url(r'^service-payment/', 'Driver.views.ServicePayment', name='Service-Payment'),
     url(r'^service-receipt/', 'Driver.views.ServiceReceipt', name='Service-Receipt'),
 
-    url(r'^logout/', 'Driver.views.Logout', name='Logout'),
     url(r'^return-home/', 'Driver.views.ReturnHome', name='Return-Home'),
     url(r'^profile-requests/', 'Driver.views.ProfileRequests', name='Profile-Requests'),
+    url(r'^logout/', 'Driver.views.Logout', name='Logout'),
 
     url(r'^requests-display/', 'Driver.views.RequestDisplay', name='Request-Display'),
 
@@ -44,7 +44,7 @@ urlpatterns = [
     url(r'^emergency-service-payment/', 'Driver.views.E_ServicePayment', name='Request-Display'),
     url(r'^emergency-service-receipt/', 'Driver.views.E_ServiceReceipt', name='Request-Display'),
 
-    url(r'^', 'Driver.views.Login', name='Login'),
+    url(r"^$", 'Driver.views.E_Home', name='First-Page'),
 
 ]
 

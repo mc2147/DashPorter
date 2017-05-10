@@ -53,60 +53,41 @@
           <li class="nav-item">
             <a class="nav-link active" href="/emergency-service">Return To Services</a>
           </li>
-<!--           <li class="nav-item">
-            <a class="nav-link" href="/profile">Profile</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/add-car">Add Car</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/support">Support</a>
-          </li>
- -->        </ul>
+        </ul>
         </div>
         <!-- <img src="Images/Logo.jpg" style="float:center; width:40px !important; margin-right:425px; display:block;">  -->
          <!-- margin-bottom:0px; margin-top:0px; margin-right:50px;"> -->
-        <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;">
+<!--         <form class="form-inline mt-2 mt-md-0 hidden-sm-down" method="GET" style="margin-top:50px;">
           <button class="btn btn-outline-success my-2 my-sm-0" style="margin-top:30px;" type="submit">Routine Maintenance</button>
-        </form>
+        </form> -->
     </nav>   
   <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
-
-
     <!-- WEB CONTAINER DIV -->
-    <div class="col-sm-6 hidden-sm-down" id="web" style="float: left; margin-left: 20px; margin-top:110px;">
+    <div class="col-sm-6 hidden-sm-down" id="web" style="float: left; margin-left: 20px; margin-top:85px;">
       <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h2 style="text-align:left;">Your Requested Service: {{Service_Name}}</h2>
         <br>
         <h3 style="margin-bottom:5px;">Cost</h3>
         <p style="text-align:left;">Service Cost: </p>
-        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}</p>
+        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}.00</p>
 
-        <p style="text-align:left;">Delivery Fee: </p>
-        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+        <p style="text-align:left;">Travel Fee ($5/mile): </p>
+        <p style="text-align:right; margin-top:-35px;">$20.00</p>
 
         <p style="text-align:left;">Taxes: </p>
-        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
-        <h5 style="text-align:left;">Total: </h5><h5 style="margin-top:-30px; text-align:right;">${{Total}}</h5>
+        <p style="text-align:right; margin-top:-35px;">$9.10</p>
+        <h5 style="text-align:left;">Total: </h5><h5 style="margin-top:-30px; text-align:right;">$79.10</h5>
         
         <h4 style="margin-top:15px; float: left;">Expected Time of Arrival: </h4>
-        <h5 style="float:right; margin-left:100px; margin-top:15px">[Time Here]</h5>
-        <br> <br> <br>
+        <h5 style="float:right; margin-left:100px; margin-top:15px">15 minutes</h5>
+        <br> <br>
         <!-- <h4 style="margin-top:15px;">Service Provider: </h4> -->
         <!-- <br><br><br> -->
         <!-- <p style="margin-top:0px; float:left;">[Details on Service Provider Here]</p> -->
-        <h4 style="margin-top:15px;">Google Maps API: </h4>
-        <!-- <br><br><br> -->
-        <p style="margin-top:0px; float:left;">[Map with Geolocation + ETA Here]</p>
+        <div style="height:290px; width:650px;" id="map"></div>
         
-        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
-        <!-- <br> -->
-        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
         <div style="margin:auto;">       
         <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
         </div>
@@ -114,7 +95,7 @@
     </div>
 
     <div class="col-sm-5 hidden-sm-down" id="web" style="float: right; margin-right:50px; margin-bottom:30px !important; margin-top:85px;">
-      <form class="form-signin" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+      <form class="form-signin" onsubmit="return Validate_Web()" name="Web_Form" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <h3 style="margin-bottom:10px; text-align:left;">Enter Payment and Contact Information</h3>
         <h5 style="margin-bottom:0px; margin-top:0px;">Name on the Card</h5>
@@ -122,20 +103,29 @@
         <h5 style="margin-bottom:0px; margin-top:0px;">Billing Address</h5>
         <input placeholder="Address" style="margin-bottom:10px;" name="billing_address" type="text" class="validate">        
         <h5 style="margin-bottom:0px;">City, State, Zip</h5>
-        <input placeholder="City, State and Zip" style="margin-bottom:10px;" name="CSV" type="text" class="validate">        
+        <input placeholder="City, State and Zip" style="margin-bottom:10px;" name="CSV" type="text" class="validate">     
+        
+        <div style="margin-left:-15px; float:left;" class="col-sm-6">   
         <h5 style="margin-bottom:0px;">Card Number</h5>
         <input placeholder="Card Number" style="margin-bottom:10px;" name="card_number" type="number" class="validate">        
-        <div class="col-sm-6" style="margin-left:-15px; float:left;">
+        </div>
+        <div class="col-sm-3" style="margin-left:15px; float:left;">
         <h5 style="margin-bottom:0px;">Expiry Date</h5>
         <input placeholder="Expiry Date" style="margin-bottom:10px;" name="expiry_date" type="number" class="validate">
         </div>
-        <div class="col-sm-6" style="float:right;">
-        <h5 style="margin-bottom:0px;">Security Code</h5>        
-        <input placeholder="Security Code" style="margin-bottom:10px;" name="security_code" type="number" class="validate">        
-        </div>        
-        <h5 style="margin-bottom:0px;">Phone Number (Required for Emergency Service)</h5>
+        <div class="col-sm-3" style="margin-left:0px; float:left;">
+        <h5 style="margin-bottom:0px;">CVV</h5>        
+        <input placeholder="CVV" style="margin-bottom:10px;" name="security_code" type="number" class="validate">
+        </div>
+        <div class="col-sm-6" style="margin-left:-15px; float:left;">
+        <h5 style="margin-bottom:0px;">Phone Number (Required)</h5>
         <input placeholder="Phone Number" name="phone_num" type="number" class="validate">        
-        
+        </div>
+        <div class="col-sm-6" style="float:right;">
+        <h5 style="margin-bottom:0px;">Email (Required)</h5>        
+        <input placeholder="Email Address" name="email" type="text" class="validate">                
+        </div>        
+
         <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
         <!-- <br> -->
         <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
@@ -148,7 +138,7 @@
     </div>
 
     <!-- MOBILE CONTAINER DIV -->
-    <div class="container hidden-sm-up" id="web" 
+    <div class="container hidden-sm-up" id="web"
     style="margin-bottom:30px !important; width:300px; margin-top:70px;">
     <form class="form-signin" action="#" method="POST" style="margin-top:0px; margin-bottom:5px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
@@ -156,34 +146,23 @@
         <br>
         <h3 style="margin-bottom:5px;">Cost</h3>
         <p style="text-align:left;">Service Cost: </p>
-        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}</p>
+        <p style="text-align:right; margin-top:-35px; margin-bottom:5px;">${{Cost}}.00</p>
 
-        <p style="text-align:left;">Delivery Fee: </p>
-        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+        <p style="text-align:left;">Travel Fee ($5/mile):</p>
+        <p style="text-align:right; margin-top:-35px;">{{Travel_Fee}}</p>
 
         <p style="text-align:left;">Taxes: </p>
-        <p style="text-align:right; margin-top:-35px;">[Cost Here]</p>
+        <p style="text-align:right; margin-top:-35px;">{{Tax}}</p>
         <h5 style="text-align:left;">Total: </h5><h5 style="margin-top:-30px; text-align:right;">${{Total}}</h5>
         
-        <h4 style="margin-top:15px; float: left;">Expected Time of Arrival: </h4>
-        <h5 style="float:right; margin-left:100px; margin-top:15px">[Time Here]</h5>
+        <h4 style="margin-top:15px; float: left;">Expected Time of Arrival: 15 minutes</h4>
         <br> <br> <br> <br>
-        <!-- <h4 style="margin-top:15px;">Service Provider: </h4> -->
-        <!-- <br><br><br> -->
-        <!-- <p style="margin-top:0px; float:left;">[Details on Service Provider Here]</p> -->
-        <h4 style="margin-top:25px;">Google Maps API: </h4>
-        <!-- <br><br><br> -->
-        <p style="margin-top:0px; float:left;">[Map with Geolocation + ETA Here]</p><br>
-        
-        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
-        <!-- <br> -->
-        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+        <div id="mobile_map" style="height:300px; width:300px; margin:auto;"></div>        
         <div style="margin:auto;">       
-        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
         </div>
       </form>
 
-        <form class="form-signin" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
+        <form class="form-signin" onsubmit="return Validate_Mobile()" name="Mobile_Form" method="POST" style="margin-top:0px; margin-bottom:5px;">{% csrf_token %}
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <br>
         <h4 style="margin-bottom:15px; text-align:left;">Enter Payment Information</h4>
@@ -194,7 +173,8 @@
         <h5 style="margin-bottom:0px;">City, State, Zip</h5>
         <input placeholder="City, State and Zip" id="first_name" type="text" class="validate">        
         <h5 style="margin-bottom:0px;">Card Number</h5>
-        <input placeholder="Card Number" id="first_name" type="text" class="validate">        
+        <input placeholder="Card Number" id="first_name" type="text" class="validate">      
+
         <div class="col-sm-6" style="width:50%; margin-left:-15px; float:left;">
             <h5 style="margin-bottom:0px;">Expiry Date</h5>
             <input placeholder="Expiry Date" id="first_name" type="text" class="validate">
@@ -202,19 +182,138 @@
         <div style="width:50%; margin-right:0px; margin-left: 10px; float:left;">
             <h5 style="margin-bottom:0px; margin-right:0px;">Security Code</h5>        
             <input placeholder="Security Code" id="first_name" type="text" class="validate">        
+        </div>       
+        <h4 style="margin-bottom:15px; text-align:left;">Enter Contact Information</h4>        
+        <div class="col-sm-6" style="width:50%; margin-left:-15px; float:left;">
+            <h5 style="margin-bottom:0px;">Phone</h5>
+            <input placeholder="Phone Number" name="phone_num" type="number" class="validate">        
+        </div>
+
+        <div style="width:50%; margin-left: 10px; float:left;">
+            <h5 style="margin-bottom:0px;">Email</h5>        
+            <input placeholder="Email Address" name="email" type="text" class="validate">                
         </div>        
-        <!-- <input style="" name="username" type="text" id="inputusername" class="form-control" placeholder="Username or Email" required autofocus> -->
-        <!-- <br> -->
-        <!-- <input style="margin-top:5px; margin-bottom:20px;" name="password" type="password" id="inputPassword" class="form-control" placeholder="Password" required> -->
+
         <div style="margin:auto;">       
-        <!-- <input type="submit" class="btn btn-block btn-social btn-primary" value="Add Car" style="margin:auto; text-align:center; font-size:20px; height:45px; margin-left:0px; background-color:#616FE6;" name="s-login" > -->
         <input type="submit" class="btn btn-block btn-primary" value="Submit" style="margin:auto; text-align:center; font-size:20px; height:45px; 
         margin-left:0px; background-color:grey;" name="payment_btn" >        
         </div>
         </form>
     </div>
+    <script type="text/javascript">
+      function Validate_Web() {
+        var phone=document.forms["Web_Form"]["phone_num"].value;
+        var email=document.forms["Web_Form"]["email"].value;
+      if (phone==null || phone=="", email==null || email=="")
+        {
+          alert("Please fill in required contact information!");
+          return false;
+        }
+      }
+      function Validate_Mobile() {
+        var phone=document.forms["Mobile_Form"]["phone_num"].value;
+        var email=document.forms["Mobile_Form"]["email"].value;
+      if (phone==null || phone=="", email==null || email=="")
+        {
+          alert("Please fill in required contact information!");
+          return false;
+        }        
+      }
+    </script>
 
- 
+        <script>
+        var map, infoWindow;
+        function Initialize() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                      var latitude = position.coords.latitude;                    //users current
+                    var longitude = position.coords.longitude;                 //location
+                    var pos_coords = new google.maps.LatLng(latitude, longitude);                   
+                
+            var directionsService = new google.maps.DirectionsService();
+                  var directionsDisplay = new google.maps.DirectionsRenderer();
+
+            var mobile_directionsService = new google.maps.DirectionsService();        
+            var mobile_directionsDisplay = new google.maps.DirectionsRenderer();
+
+
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                };
+                var pos_2 = {
+                    lat: position.coords.latitude + 0.03,
+                    lng: position.coords.longitude - 0.02,
+                };
+
+                      var lat_2 = pos_2.lat;                    
+                    var long_2 = pos_2.lng;                 
+                var pos_2_coords = new google.maps.LatLng(lat_2, long_2);
+
+                var midpoint = {
+                    lat: (pos.lat + pos_2.lat)/2,
+                    lng: (pos.lng + pos_2.lng)/2,
+                };
+                    
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    zoom: 13,
+                    center: midpoint,
+                  });
+
+                  var mobile_map = new google.maps.Map(document.getElementById('mobile_map'), {
+                    zoom: 13,
+                    center: midpoint,
+                  });
+                        // var marker = new google.maps.Marker({
+                        //   position: pos,
+                        //   map: map,
+                        // });
+                        // var marker_2 = new google.maps.Marker({
+                        //   position: pos_2,
+                        //   map: map,
+                        // });
+                        // var mobile_marker = new google.maps.Marker({
+                        //   position: pos,
+                        //   map: mobile_map,
+                        // });
+            // CODE TO SET DIRECTIONS STARTS HERE
+                  directionsDisplay.setMap(map);
+                    var request = {
+                       origin: pos_2_coords,
+                       destination: pos_coords,
+                       travelMode: 'DRIVING'
+                    };
+                    directionsService.route(request, function(result, status) {
+                        if (status == 'OK') {
+                            directionsDisplay.setDirections(result);
+                        }
+                    });
+
+            // MOBILE STARTS HERE
+              mobile_directionsDisplay.setMap(mobile_map);
+              var mobile_request = {
+               origin: pos_coords,
+               destination: pos_2_coords,
+               travelMode: 'DRIVING'
+            };
+            mobile_directionsService.route(mobile_request, function(result, status) {
+              if (status == 'OK') {
+                  mobile_directionsDisplay.setDirections(result);
+              }
+            });
+
+
+                })
+            }
+            else {
+                handleLocationError(false, infoWindow, map.getCenter());    
+            }
+        }
+        </script>        
+        <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBnBL97oqOwwr-YU19m7s1lXmbf5NFZBPI&callback=Initialize">
+        </script>
+
    <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

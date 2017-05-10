@@ -44,24 +44,28 @@ class Service(models.Model):
 class Contact(models.Model):
 	email = models.CharField(max_length=200, default="")
 	phone_number = models.CharField(max_length=200, default="")	
+	phone_num = models.IntegerField(default=0)	
 
 class Request(models.Model):
 	id_num = models.IntegerField(default=0)
 	service = models.CharField(max_length=200, default="")
 	cost = models.IntegerField(default = 0)
+	car = models.OneToOneField(Car, default="", null=True, blank=True)
 	initial_ETA = models.CharField(max_length=200, default="")
 	time_created = models.DateTimeField(auto_now_add=True)
+	contact = models.OneToOneField(Contact, default="", null=True, blank=True)
+	# time_confirmed = models.DateTimeField(auto_now_add=True)
+	confirmed = models.BooleanField(default=False)
+
 	provider = models.CharField(max_length=200, default="")
 	requester = models.CharField(max_length=200, default="")
-	confirmed = models.BooleanField(default=False)
-	car = models.OneToOneField(Car, default="", null=True, blank=True)
 	car_info = models.CharField(max_length=200, default="")
-	contact = models.OneToOneField(Contact, default="", null=True, blank=True)
-#	REQUEST INFORMATION	
+#	REQUEST INFORMATION
 	flat_tires = models.CharField(max_length=200, default="")
 	message = models.CharField(max_length=1000, default="")
 	in_ditch = models.BooleanField(default=False)
 	accident = models.BooleanField(default=False)
+# 	DISPATCH SIDE
 	claimed = models.BooleanField(default=False)
 	time_claimed = models.DateTimeField(auto_now_add=True)
 	completed = models.BooleanField(default=False)

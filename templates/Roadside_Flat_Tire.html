@@ -57,8 +57,20 @@
     </nav>   
   <!-- MOBILE VS WEB -->
     <!-- Margin-Top: 30px for mobile, 80 px for web -->
+
     <!-- WEB CONTAINER DIV -->
-    <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;">
+    <script type="text/javascript">
+      function ValidateForm()
+      {
+      if (!document.getElementById("FL").checked && !document.getElementById("FR").checked 
+      && !document.getElementById("RL").checked && !document.getElementById("RR").checked)
+        {
+          alert("Please check which tire(s) are flat");
+          return false;
+        }
+      }
+    </script>    
+    <form class="form-signin" method="GET" style="margin-top:0px; margin-bottom:5px;" onsubmit = "return ValidateForm()">
     <div class="col-md-5 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:100px;">
         <!-- <img src="Images/Logo.jpg" style="width:200px !important; margin-left:50px !important; margin-bottom:0px; margin-top:0px;"> -->
         <!-- <h2 style="text-align:left;">Information for Repair Truck:</h2> -->
@@ -66,21 +78,21 @@
         <h3 style="margin-top:-15px; margin-bottom:25px;">Check All Tires That Are Flat:</h3>
         <div class="row" style="margin-bottom:5px">
             <p style="float:left; margin-left:20px; padding:0; line-height:20px;">
-             <input type="checkbox" value="Front Left" name="select_tire" id="Front Left" 
+             <input type="checkbox" value="Front Left" name="select_tire" id="FL" 
              style=" margin:0; padding:0; line-height:20px; transform: scale(1)">
              Front Left</p>  
              <p style="float:left; margin-left:200px; padding:0; line-height:20px;">
-             <input type="checkbox" value="Front Right" name="select_tire" id="Front Right" 
+             <input type="checkbox" value="Front Right" name="select_tire" id="FR" 
              style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
              Front Right </p>  
         </div>
         <div class="row" style="margin-bottom:5px">
           <p style="float:left; padding:0; margin-left:20px; line-height:20px;">
-           <input type="checkbox" value="Rear Left" name="select_tire" id="Rear Left" 
+           <input type="checkbox" value="Rear Left" name="select_tire" id="RL" 
            style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
            Rear Left </p>             
           <p style="float:left; margin-left:205px; padding:0; line-height:20px;">
-           <input type="checkbox" value="Rear Right" name="select_tire" id="Rear Right" 
+           <input type="checkbox" value="Rear Right" name="select_tire" id="RR" 
            style=" margin:0; padding:0; line-height:20px; transform: scale(1)"> 
            Rear Right </p>  
         </div>
@@ -108,7 +120,7 @@
     </div>
     <div class="col-md-6 hidden-sm-down" id="web" style="float:left; margin-left: 30px; margin-bottom:30px !important; margin-top:70px;">
         <h3 style="text-align:left; margin-top:15px; margin-bottom:35px;">Additional Comments:</h3>        
-        <textarea style="margin-top:5px; margin-bottom:15px; width:100%; height:200px;" name="Text1" cols="40" rows="5" 
+        <textarea style="margin-top:5px; margin-bottom:15px; width:100%; height:200px;" name="message_body" cols="40" rows="5" 
         placeholder="Write a message for your repairman here. (Describe your problem, urgent circumstances, etc.)" 
         class="validate"></textarea>
         <br>

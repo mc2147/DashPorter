@@ -82,7 +82,7 @@ DATABASES = {
     }
 }
 
-LOGIN_URL = "/login"
+# LOGIN_URL = "/"
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
